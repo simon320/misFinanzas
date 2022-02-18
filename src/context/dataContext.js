@@ -1,32 +1,15 @@
-import { createContext, useState } from "react";
+import { createContext } from "react";
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
-  const [nameUser, setNameUser] = useState("");
-  const [moneyInAccount, setMoneyInAccount] = useState("");
-  // const [totalIncome, setTotalIncome] = useState(0);
-  // const [totalExpenses, setTotalExpenses] = useState(0);
-  // const [totalAvaible, setTotalAvaible] = useState(0);
-  // const [avaibleForDays, setAvaibleForDays] = useState(0);
-  // const [distribution, setDistribution] = useState("month"); 
-  // const [startOfDistribution, setStartOfDistribution] = useState("1"); 
+  const [nameUser, setNameUser] = useLocalStorage('nameUser', '')
+  const [moneyInAccount, setMoneyInAccount] = useLocalStorage('moneyInAccount', '')
 
   return (
     <DataContext.Provider
       value={{
-        // totalIncome,
-        // setTotalIncome,
-        // totalExpenses,
-        // setTotalExpenses,
-        // totalAvaible,
-        // setTotalAvaible,
-        // avaibleForDays, 
-        // setAvaibleForDays,
-        // distribution,
-        // setDistribution,
-        // startOfDistribution,
-        // setStartOfDistribution,
         nameUser,
         setNameUser,
         moneyInAccount,

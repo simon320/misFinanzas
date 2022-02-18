@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 
 const StartingAcount = () => {
-  const { nameUser, moneyInAccount, setMoneyInAccount } = useContext(DataContext);
+  const { nameUser, moneyInAccount, setMoneyInAccount } =
+    useContext(DataContext);
 
   return (
     <div>
@@ -13,17 +14,19 @@ const StartingAcount = () => {
         Para continuar, introduce el monto de dinero que tienes en este momento
         cuenta.(Luego podra agregar mas ingresos de dinero).
       </p>
-      <label>
-        <input
-          onChange={(e) => setMoneyInAccount(e.target.value)}
-          value={moneyInAccount}
-          type="number"
-          placeholder="$0.00"
-        />
-      </label>
-      <Link to="/HomePage">
-        <button>Continuar</button>
-      </Link>
+      <form>
+        <label>
+          <input
+            onChange={(e) => setMoneyInAccount(e.target.value)}
+            value={moneyInAccount}
+            type="number"
+            placeholder="$0.00"
+          />
+        </label>
+        <Link to="/HomePage">
+          <button>Continuar</button>
+        </Link>
+      </form>
     </div>
   );
 };

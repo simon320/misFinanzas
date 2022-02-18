@@ -1,20 +1,7 @@
 import { useState } from "react";
 
 const daysShortArr = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
-
-const monthNamesArr = [
-  "Enero",
-  "Febrero",
-  "Marzo",
-  "Abril",
-  "Mayo",
-  "Junio",
-  "Julio",
-  "Agosto",
-  "Septiembre",
-  "Noviembre",
-  "Diciembre",
-];
+const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Noviembre", "Diciembre"];
 
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
   const today = new Date();
