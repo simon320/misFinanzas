@@ -16,7 +16,7 @@ const monthNamesArr = [
   "Diciembre",
 ];
 
-const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
+export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
@@ -93,11 +93,12 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
               selectedDate.getMonth() + 2 === 13
                 ? 1
                 : selectedDate.getMonth() + 2
-            }-${
-              selectedDate.getMonth() + 2 === 13
-                ? selectedDate.getFullYear() + 1
-                : selectedDate.getFullYear()
-            }`,
+            }
+                -${
+                  selectedDate.getMonth() + 2 === 13
+                    ? selectedDate.getFullYear() + 1
+                    : selectedDate.getFullYear()
+                }`,
             value: nextMonthCounter,
             nameDay: j,
           },
@@ -117,6 +118,4 @@ const useCalendar = (daysShort = daysShortArr, monthNames = monthNamesArr) => {
     daysInMonth,
     firstDayInMonth,
   };
-};
-
-export default useCalendar;
+}
