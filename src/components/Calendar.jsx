@@ -3,19 +3,9 @@ import { useCalendar } from "../hooks/useCalendar";
 import { Link, Outlet } from "react-router-dom";
 import { DataContext } from "../context/dataContext";
 import DateMont from "../components/DateMont";
+import Date from "./Date";
 
 const Calendar = () => {
-  //   const { distribution, startOfDistribution } = useContext(DataContext);
-
-  const daysInWeek = [
-    "Lunes",
-    "Martes",
-    "Miercoles",
-    "Jueves",
-    "Viernes",
-    "Sabado",
-    "Domingo",
-  ];
 
   let x = 1;
   let y;
@@ -30,26 +20,14 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
-  //   const { totalAvaible, avaibleForDays, setAvaibleForDays } =
-  //     useContext(DataContext);
-
-  //   useEffect(() => {
-  //     setAvaibleForDays(
-  //       (totalAvaible / (distribution == "month" ? daysInMonth : 15)).toFixed(2)
-  //     );
-  //   }, [totalAvaible, distribution]);
-
-  const dateClickHandle = () => {
-    console.log(selectedDate);
-  };
+  // const dateClickHandle = () => {
+  //   console.log(selectedDate);
+  // };
 
   return (
     <div className="container-div">
-      <h3 className="center">
-        {" "}
-        {`${
-          monthNames[selectedDate.getMonth()]
-        } - ${selectedDate.getFullYear()}`}
+      <h3 className="center">{" "}
+        {`${ monthNames[selectedDate.getMonth()]} - ${selectedDate.getFullYear()}`}
       </h3>
       <table className="container-div">
         <thead>
@@ -70,7 +48,6 @@ const Calendar = () => {
                     <td
                       key={x++}
                       className={`${col.classes} center today table-dark text-bold`}
-                      onClick={() => dateClickHandle(col.date)}
                     >
                       <Link
                         className="link"
@@ -78,8 +55,9 @@ const Calendar = () => {
                         key={col.date}
                       >
                         {col.value}
-
-                        <p className="avaible">$1000</p>
+                        <p className="avaible">
+                          ${col.amountPerDay}
+                        </p>
                       </Link>
                     </td>
                   ) : (
@@ -90,17 +68,34 @@ const Calendar = () => {
                         col.classes !== "in-next-month" &&
                         "text-bold"
                       }`}
-                      onClick={() => dateClickHandle(col.date)}
                     >
                       <Link
                         className="link"
-                        to={`./${daysInWeek[col.nameDay - 1]} ${col.value}`}
+                        to={`${col.value}`}
                         col={col}
                         key={col.date}
                       >
                         {col.value}
                         <p>
-                          {/* {distribution == "month" ? (
+                          ${col.amountPerDay}
+                        </p>
+                      </Link>
+                    </td>
+                  )
+                )}
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+      <Date calendarRows={calendarRows} />
+    </div>
+  );
+};
+
+export default Calendar;
+
+{/* {distribution == "month" ? (
                           col.classes !== "in-prev-month" &&
                           col.classes !== "in-next-month" &&
                           <DateMont
@@ -126,20 +121,3 @@ const Calendar = () => {
                             />
                           )
                         )} */}
-                          $1000
-                        </p>
-                      </Link>
-                    </td>
-                  )
-                )}
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <Outlet />
-    </div>
-  );
-};
-
-export default Calendar;

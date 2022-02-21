@@ -1,9 +1,15 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { DataContext } from "../context/dataContext";
 
 const daysShortArr = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
+const daysName = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
 const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Noviembre", "Diciembre"];
 
+
+
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
+  const { amountPerDay } = useContext(DataContext)
+
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
@@ -40,7 +46,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                   : selectedDate.getFullYear()
               }`,
               value: prevMonthStartingPoint,
-              nameDay: j,
+              nameDay: daysName[j]
             },
           ];
           prevMonthStartingPoint++;
@@ -53,7 +59,8 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                 selectedDate.getMonth() + 1
               }-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
-              nameDay: j,
+              amountPerDay: parseInt(amountPerDay).toFixed(2),
+              nameDay: daysName[j]
             },
           ];
           currentMonthCounter++;
@@ -67,7 +74,8 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
               selectedDate.getMonth() + 1
             }-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
-            nameDay: j,
+            amountPerDay: parseInt(amountPerDay).toFixed(2),
+            nameDay: daysName[j]
           },
         ];
         currentMonthCounter++;
@@ -87,7 +95,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                     : selectedDate.getFullYear()
                 }`,
             value: nextMonthCounter,
-            nameDay: j,
+            nameDay: daysName[j]
           },
         ];
         nextMonthCounter++;

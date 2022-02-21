@@ -1,13 +1,14 @@
 import React from "react";
 
-const Date = (col) => {
+const Date = ({ calendarRows }) => {
+  console.log(calendarRows[1][2].nameDay)
 
   return (
     <>
       <div className="center flex">
         <p>
           {" "}
-          {col.nameDay}
+          {calendarRows[1][2].nameDay}
         </p>
       </div>
       <div className="flex">
