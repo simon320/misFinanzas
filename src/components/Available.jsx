@@ -1,23 +1,20 @@
 import React, { useState, useContext, useEffect } from "react";
 import { DataContext } from "../context/dataContext";
 
-const Available = ({ setViewOptionAvailable }) => {
+const Available = () => {
   const {
-    viewOptionAvailable,
-    moneyInAccount,
-    setMoneyInAccount,
+    viewOptionAvailable, setViewOptionAvailable,
+    moneyInAccount, setMoneyInAccount,
     setAmountPerDay,
-    savedMoney,
-    setSavedMoney,
-    daysForDistribute, 
-    setDaysForDistribute
+    savedMoney, setSavedMoney,
+    daysForDistribute, setDaysForDistribute
   } = useContext(DataContext);
   const [viewOption, setViewOption] = useState("");
   const [moneyForSaved, setMoneyForSaved] = useState(0);
   
   const handleDistribute = () => {
     setAmountPerDay(parseInt(moneyInAccount) / daysForDistribute);
-    setViewOptionAvailable("");
+    setViewOptionAvailable(false);
     console.log(moneyInAccount)
   };
   
@@ -25,7 +22,7 @@ const Available = ({ setViewOptionAvailable }) => {
     setMoneyInAccount(parseInt(moneyInAccount) - moneyForSaved);
     setSavedMoney(parseInt(savedMoney) + parseInt(moneyForSaved));
     setTimeout(() => {
-      setViewOptionAvailable("");
+      setViewOptionAvailable(false);
     }, 100);
   };
 

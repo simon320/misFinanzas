@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import Available from "../components/Available";
+import Saved from "../components/Saved";
 import { DataContext } from "../context/dataContext";
 
 const HomePage = () => {
@@ -13,7 +14,9 @@ const HomePage = () => {
     setViewOptionAvailable,
     savedMoney,
     setSavedMoney,
-    setAmountPerDay
+    setAmountPerDay,
+    viewOptionSaved,
+    setViewOptionSaved,
   } = useContext(DataContext);
   const navigation = useNavigate();
 
@@ -27,23 +30,40 @@ const HomePage = () => {
     setMoneyInAccount(0);
     setSavedMoney(0);
     setAmountPerDay(0);
+    setViewOptionSaved(false);
+    setViewOptionAvailable(false);
     navigation("/");
   };
+
+  const handleClickAvailable = () =>{
+    setViewOptionAvailable(!viewOptionAvailable)
+    setViewOptionSaved(false)
+  }
+  const handleClickSaved = () =>{
+    setViewOptionSaved(!viewOptionSaved)
+    setViewOptionAvailable(false)
+  }
 
   return (
     <div>
       <nav>
         <h1>misFinanzas</h1>
         <p>{nameUser}</p>
-        <button onClick={() => setViewOptionAvailable(!viewOptionAvailable)}>
-         ${moneyInAccount}
+
+        <button onClick={handleClickAvailable}>
+          ${moneyInAccount}
         </button>{" "}
-        <button>
+        <button onClick={handleClickSaved}>
           ${savedMoney}
         </button>{" "}
-        {viewOptionAvailable && <Available setViewOptionAvailable={setViewOptionAvailable}/>}
+        {viewOptionAvailable && (
+          <Available setViewOptionAvailable={setViewOptionAvailable} />
+        )}
+        {viewOptionSaved && <Saved setViewOptionSaved={setViewOptionSaved} />}
+        {" "}
         <Link to={"../HomePage"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link>
+        {" "}
         <button onClick={handleDelete}>Borrar Usuario</button>
       </nav>
       <Outlet />
