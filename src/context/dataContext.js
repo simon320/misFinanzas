@@ -10,12 +10,8 @@ export const DataProvider = ({ children }) => {
   const [amountPerDay, setAmountPerDay] = useLocalStorage('amountPerDay', 0)
   const [daysForDistribute, setDaysForDistribute] = useLocalStorage('daysForDistribute', 0);
   const [viewOptionAvailable, setViewOptionAvailable] = useState(false);
+  const [viewOptionSaved, setViewOptionSaved] = useState(false);
 
-
-  // useEffect(()=>{
-  //   setAmountPerDay(moneyInAccount / 28);
-  //   console.log(amountPerDay)
-  // }, [moneyInAccount])
 
   return (
     <DataContext.Provider
@@ -31,7 +27,9 @@ export const DataProvider = ({ children }) => {
         daysForDistribute, 
         setDaysForDistribute,
         viewOptionAvailable,
-        setViewOptionAvailable
+        setViewOptionAvailable,
+        viewOptionSaved, 
+        setViewOptionSaved
       }}
     >
       {children}

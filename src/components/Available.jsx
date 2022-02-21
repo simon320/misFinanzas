@@ -18,26 +18,20 @@ const Available = ({ setViewOptionAvailable }) => {
   const handleDistribute = () => {
     setAmountPerDay(parseInt(moneyInAccount) / daysForDistribute);
     setViewOptionAvailable("");
+    console.log(moneyInAccount)
   };
   
   const handleSaved = () => {
     setMoneyInAccount(parseInt(moneyInAccount) - moneyForSaved);
     setSavedMoney(parseInt(savedMoney) + parseInt(moneyForSaved));
-    setViewOptionAvailable("");
-  };
-  
-  // useEffect (() => {
-  //   setMoneyInAccount(parseInt(moneyInAccount) - moneyForSaved);
-  //   setSavedMoney(parseInt(savedMoney) + parseInt(moneyForSaved));
-  //   setViewOptionAvailable("");
-  // }, [setMoneyForSaved])
-  
-  
-    useEffect (() => {
-      setAmountPerDay(parseInt(moneyInAccount) / daysForDistribute);
+    setTimeout(() => {
       setViewOptionAvailable("");
-      console.log(moneyInAccount)
-    }, [moneyInAccount])
+    }, 100);
+  };
+
+  useEffect(()=>{
+    setAmountPerDay(parseInt(moneyInAccount) / daysForDistribute);
+  }, [moneyInAccount])
 
   const option = () => {
     switch (viewOption) {
