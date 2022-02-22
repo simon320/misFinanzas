@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const Saved = () => {
   const {
@@ -10,18 +10,30 @@ const Saved = () => {
     moneyInBadge, setMoneyInBadge,
     setAmountPerDay,
     daysForDistribute, setDaysForDistribute,
-  } = useContext(DataContext);
+  } = useContext(FinanceContext);
 
   const [viewOption, setViewOption] = useState("");
   const [moneyForAccount, setMoneyForAccount] = useState(0);
   const [moneyForBadge, setMoneyForBadge] = useState(0);
 
-  const handleTransfer = (transfer, account, amountAccount) => {
-    setSavedMoney(parseInt(savedMoney) - parseInt(transfer));
-    account(parseInt(amountAccount) + parseInt(transfer));
-    setTimeout(() => {  
-      setViewOptionSaved(false)
-    }, 250);
+   const handleTransferAccount = () => {
+     setSavedMoney(parseInt(savedMoney) - parseInt(moneyForAccount));
+     setMoneyInAccount(parseInt(moneyInAccount) + parseInt(moneyForAccount));
+     setTimeout(() => {
+       setViewOptionSaved(false);
+     }, 250);
+   };
+
+   const handleTransferBadge = () => {
+     setSavedMoney(parseInt(savedMoney) - parseInt(moneyForBadge));
+     setMoneyInBadge(parseInt(moneyInBadge) + parseInt(moneyForBadge));
+     setTimeout(() => {
+       setViewOptionSaved(false);
+     }, 250);
+   };
+
+  const handleTransfer = (moneyTransfer, confirmTransfer) => {
+    savedMoney >= moneyTransfer ? confirmTransfer() : window.alert("No tienes esa cantidad de dinero ahorrado")
   };
 
   useEffect(() => {
@@ -40,7 +52,7 @@ const Saved = () => {
                 value={moneyForAccount}
                 onChange={(e) => setMoneyForAccount(e.target.value)}
               />
-              <button onClick={()=> handleTransfer(moneyForAccount, setMoneyInAccount, moneyInAccount)}>Distribuir</button>
+              <button onClick={()=> handleTransfer(moneyForAccount, handleTransferAccount)}>Distribuir</button>
             </label>
           </>
         );
@@ -54,7 +66,7 @@ const Saved = () => {
                 value={moneyForBadge}
                 onChange={(e) => setMoneyForBadge(e.target.value)}
               />
-              <button onClick={()=> handleTransfer(moneyForBadge, setMoneyInBadge, moneyInBadge)}>Ahorrar</button>
+              <button onClick={()=> handleTransfer(moneyForBadge, handleTransferBadge)}>Ahorrar</button>
             </label>
           </>
         );

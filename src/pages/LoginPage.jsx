@@ -1,9 +1,9 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const LoginPage = () => {
-  const { nameUser, setNameUser } = useContext(DataContext)
+  const { nameUser, setNameUser } = useContext(FinanceContext)
 
   return (
     <div>

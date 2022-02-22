@@ -1,15 +1,15 @@
 import React, { useContext } from 'react'
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const ForeignExchange = () => {
 
-  const { moneyInBadge } = useContext(DataContext);
+  const { moneyInBadge } = useContext(FinanceContext);
   console.log(moneyInBadge)
 
   return (
     <div>
         <h1>Divizas</h1>
-        <p>{moneyInBadge}</p>
+        <p>${moneyInBadge}</p>
     </div>
   )
 }

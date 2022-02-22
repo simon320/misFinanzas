@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from "react";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const Available = () => {
   const {
@@ -8,7 +8,8 @@ const Available = () => {
     setAmountPerDay,
     savedMoney, setSavedMoney,
     daysForDistribute, setDaysForDistribute
-  } = useContext(DataContext);
+  } = useContext(FinanceContext);
+
   const [viewOption, setViewOption] = useState("");
   const [moneyForSaved, setMoneyForSaved] = useState(0);
   
@@ -17,13 +18,17 @@ const Available = () => {
     setViewOptionAvailable(false);
     console.log(moneyInAccount)
   };
-  
-  const handleSaved = () => {
+
+  const saved = () => {
     setMoneyInAccount(parseInt(moneyInAccount) - moneyForSaved);
     setSavedMoney(parseInt(savedMoney) + parseInt(moneyForSaved));
     setTimeout(() => {
       setViewOptionAvailable(false);
-    }, 100);
+    }, 100)
+  }
+
+  const handleSaved = (save) => {
+   moneyInAccount >= moneyForSaved ? save() : window.alert("No tienes esa cantidad de dinero en la cuenta")
   };
 
   useEffect(()=>{
@@ -56,7 +61,7 @@ const Available = () => {
                 value={moneyForSaved}
                 onChange={(e) => setMoneyForSaved(e.target.value)}
               />
-              <button onClick={handleSaved}>Ahorrar</button>
+              <button onClick={()=> handleSaved(saved)}>Ahorrar</button>
             </label>
           </>
         );

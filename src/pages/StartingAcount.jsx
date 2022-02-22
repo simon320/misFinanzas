@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const StartingAcount = () => {
   const { nameUser, moneyInAccount, setMoneyInAccount } =
-    useContext(DataContext);
+    useContext(FinanceContext);
 
   return (
     <div>

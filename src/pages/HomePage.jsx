@@ -1,38 +1,48 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Link, useNavigate } from "react-router-dom";
+import { FinanceContext } from "../context/financeContext";
+import { useCalendar } from "../hooks/useCalendar";
 import Available from "../components/Available";
 import Saved from "../components/Saved";
-import { DataContext } from "../context/dataContext";
 
 const HomePage = () => {
   const {
-    nameUser,
-    setNameUser,
-    moneyInAccount,
-    setMoneyInAccount,
-    viewOptionAvailable,
-    setViewOptionAvailable,
-    savedMoney,
-    setSavedMoney,
+    nameUser, setNameUser,
+    moneyInAccount, setMoneyInAccount,
+    viewOptionAvailable, setViewOptionAvailable,
+    savedMoney, setSavedMoney,
     setAmountPerDay,
-    viewOptionSaved,
-    setViewOptionSaved,
-  } = useContext(DataContext);
+    setMoneyInBadge,
+    daysForDistribute, setDaysForDistribute,
+    viewOptionSaved, setViewOptionSaved,
+  } = useContext(FinanceContext);
+  const {
+    today,
+    calendarRows,
+    selectedDate,
+    todayFormatted,
+    daysShort,
+    monthNames,
+    daysInMonth,
+    firstDayInMonth,
+  } = useCalendar();
   const navigation = useNavigate();
 
-  // const confirmDelete = () => {
-  //     const deleteUser = window.confirm('¿Esta seguro que desea borrar todos los datos de su cuenta?')
-  //   return deleteUser;
-  // }
+  const confirmDelete = (callback) => {
+     const deleteUser = window.confirm('¿Esta seguro que desea borrar todos los datos de su cuenta?')
+     deleteUser && callback()
+  }
 
   const handleDelete = () => {
-    setNameUser("");
-    setMoneyInAccount(0);
-    setSavedMoney(0);
-    setAmountPerDay(0);
-    setViewOptionSaved(false);
-    setViewOptionAvailable(false);
-    navigation("/");
+      setNameUser("");
+      setMoneyInAccount(0);
+      setSavedMoney(0);
+      setMoneyInBadge(0);
+      setAmountPerDay(0);
+      setDaysForDistribute(daysInMonth);
+      setViewOptionSaved(false);
+      setViewOptionAvailable(false);
+      navigation("/");
   };
 
   const handleClickAvailable = () =>{
@@ -44,27 +54,35 @@ const HomePage = () => {
     setViewOptionAvailable(false)
   }
 
+  useEffect(()=>{
+    setAmountPerDay(moneyInAccount / daysForDistribute)
+    console.log("Me ejecute")
+  },[])
+
   return (
     <div>
       <nav>
         <h1>misFinanzas</h1>
         <p>{nameUser}</p>
-
-        <button onClick={handleClickAvailable}>
-          ${moneyInAccount}
-        </button>{" "}
-        <button onClick={handleClickSaved}>
-          ${savedMoney}
-        </button>{" "}
+        <label>Cuenta
+          <button onClick={handleClickAvailable}>${moneyInAccount}</button>{" "}
+        </label>
+        {" || "}
+        <label>Ahorrado
+          <button onClick={handleClickSaved}>${savedMoney}</button>{" "}
+        </label>
         {viewOptionAvailable && (
           <Available setViewOptionAvailable={setViewOptionAvailable} />
         )}
-        {viewOptionSaved && <Saved setViewOptionSaved={setViewOptionSaved} />}
-        {" "}
+        {viewOptionSaved && <Saved setViewOptionSaved={setViewOptionSaved} />}{" "}
+        <br />
         <Link to={"../HomePage"}>Home</Link>{" "}
-        <Link to={"ForeignExchange"}>Divizas</Link>
-        {" "}
-        <button onClick={handleDelete}>Borrar Usuario</button>
+        <Link to={"ForeignExchange"}>Divizas</Link>{" "}
+        <br />
+        <button onClick={() => confirmDelete(handleDelete)}>
+          Borrar Usuario
+        </button>
+        <input/>
       </nav>
       <Outlet />
     </div>

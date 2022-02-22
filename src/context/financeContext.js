@@ -1,9 +1,11 @@
 import { createContext, useState } from "react";
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
-export const DataContext = createContext();
 
-export const DataProvider = ({ children }) => {
+export const FinanceContext = createContext();
+
+export const FinanceProvider = ({ children }) => {
+
   const [nameUser, setNameUser] = useLocalStorage('nameUser', '')
 
   const [moneyInAccount, setMoneyInAccount] = useLocalStorage('moneyInAccount', 0)
@@ -16,7 +18,7 @@ export const DataProvider = ({ children }) => {
   const [viewOptionSaved, setViewOptionSaved] = useState(false);
 
   return (
-    <DataContext.Provider
+    <FinanceContext.Provider
       value={{
         nameUser, setNameUser,
         moneyInAccount, setMoneyInAccount,
@@ -29,6 +31,6 @@ export const DataProvider = ({ children }) => {
       }}
     >
       {children}
-    </DataContext.Provider>
+    </FinanceContext.Provider>
   );
 };

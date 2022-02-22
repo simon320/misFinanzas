@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { DataProvider } from "./context/dataContext";
+import { FinanceProvider } from "./context/financeContext";
 import LoginPage from "./pages/LoginPage";
 import StartingAcount from "./pages/StartingAcount";
 import HomePage from "./pages/HomePage";
@@ -9,7 +9,7 @@ import ForeignExchange from "./components/ForeignExchange";
 
 function App() {
   return (
-    <DataProvider>
+    <FinanceProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<LoginPage />} />
@@ -20,7 +20,7 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
-    </DataProvider>
+    </FinanceProvider>
   );
 }
 

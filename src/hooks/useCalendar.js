@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 
 const daysShortArr = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
 const daysName = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
@@ -8,7 +8,7 @@ const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "J
 
 
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
-  const { amountPerDay } = useContext(DataContext)
+  const { amountPerDay } = useContext(FinanceContext)
 
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;

@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { useCalendar } from "../hooks/useCalendar";
 import { Link, Outlet } from "react-router-dom";
-import { DataContext } from "../context/dataContext";
+import { FinanceContext } from "../context/financeContext";
 import DateMont from "../components/DateMont";
 import Date from "./Date";
 
@@ -94,30 +94,3 @@ const Calendar = () => {
 };
 
 export default Calendar;
-
-{/* {distribution == "month" ? (
-                          col.classes !== "in-prev-month" &&
-                          col.classes !== "in-next-month" &&
-                          <DateMont
-                            col={col}
-                            today={today}
-                            avaibleForDays={avaibleForDays}
-                          />
-                        ) : (
-                          x >=
-                            (y =
-                              parseInt(startOfDistribution) +
-                              firstDayInMonth -
-                              1) &&
-                          x <
-                            (y =
-                              parseInt(startOfDistribution) +
-                              firstDayInMonth +
-                              14) && (
-                            <DateMont
-                              col={col}
-                              today={today}
-                              avaibleForDays={avaibleForDays}
-                            />
-                          )
-                        )} */}
