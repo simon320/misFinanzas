@@ -21,7 +21,7 @@ const Date = () => {
   }, [state]);
 
   const { amountPerDay } = useContext(FinanceContext);
-  const amount = amountPerDay;
+  const [amount, setAmount] = useState(amountPerDay);
 
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
@@ -66,9 +66,9 @@ const Date = () => {
         }}
       >
         <p> {dates[0].date}</p>
-        <p>${(amount) - expenses}</p>
+        <p>${amount}</p>
       </div>
-        <Row data={state} dispatch={dispatch} />
+        <Row data={state} dispatch={dispatch} set={setAmount} amountP={amount} />
       <div className="flex"></div>
       <div className="flex">
         {active && optionAdd()}

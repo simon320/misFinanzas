@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 
 const RowIncomeAdd = ({ dispatch }) => {
-  const [data, setData] = useState({ description: "", amount: "" });
+  const [data, setData] = useState({ character: "", description: "", amount: "" });
 
   const { description, amount } = data;
 
@@ -10,6 +10,7 @@ const RowIncomeAdd = ({ dispatch }) => {
     type: "add",
     payload: {
       id: description,
+      character: "Ingreso",
       description,
       amount,
     },
@@ -24,7 +25,7 @@ const RowIncomeAdd = ({ dispatch }) => {
 
   const handleAdd = (e) => {
     dispatch(actionAdd);
-    setData({ description: "", amount: "" });
+    setData({ character: "", description: "", amount: "" });
   };
 
   return (

@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 
-
 const RowExpenseAdd = ({ dispatch }) => {
-  const [data, setData] = useState({ description: "", amount: "" });
+  const [data, setData] = useState({
+    character: "",
+    description: "",
+    amount: "",
+  });
 
   const { description, amount } = data;
 
@@ -10,6 +13,7 @@ const RowExpenseAdd = ({ dispatch }) => {
     type: "add",
     payload: {
       id: description,
+      character: "Gasto",
       description,
       amount,
     },
@@ -24,7 +28,7 @@ const RowExpenseAdd = ({ dispatch }) => {
 
   const handleAdd = (e) => {
     dispatch(actionAdd);
-    setData({ description: "", amount: "" });
+    setData({ character: "", description: "", amount: "" });
   };
 
   return (
