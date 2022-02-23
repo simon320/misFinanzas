@@ -24,7 +24,7 @@ const StartingAcount = () => {
           />
         </label>
         <Link to="/HomePage">
-          <button>Continuar</button>
+          <button className="btn btn-info m-2">Continuar</button>
         </Link>
       </form>
     </div>

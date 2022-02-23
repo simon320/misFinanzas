@@ -81,7 +81,7 @@ const HomePage = () => {
         <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link>{" "}
         <br />
-        <button className="btn btn-info m-2" onClick={() => confirmDelete(handleDelete)}>
+        <button className="btn btn-danger m-2" onClick={() => confirmDelete(handleDelete)}>
           Borrar Usuario
         </button>
         {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}

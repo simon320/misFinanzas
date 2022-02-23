@@ -19,8 +19,8 @@ const Date = () => {
               $
               <input type="number" placeholder="00.0" />
             </label>
-            <button className="btn btn-info m-2">✚</button>
-            <button className="btn btn-info m-2" onClick={() => setActionAdd("")}>✘</button>
+            <button className="btn btn-success mx-2">✚</button>
+            <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
 
@@ -40,16 +40,16 @@ const Date = () => {
                 placeholder="00.0"
               />
             </label>
-            <button className="btn btn-info m-2">✚</button>
-            <button className="btn btn-info m-2" onClick={() => setActionAdd("")}>✘</button>
+            <button className="btn btn-success mx-2">✚</button>
+            <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
 
       default:
         return (
           <>
-            <button className="btn btn-info m-2" onClick={() => setActionAdd("income")}>Ingreso</button>
-            <button className="btn btn-info m-2" onClick={() => setActionAdd("expenses")}>Gasto</button>
+            <button className="btn btn-success m-2" onClick={() => setActionAdd("income")}>Ingreso</button>
+            <button className="btn btn-danger m-2" onClick={() => setActionAdd("expenses")}>Gasto</button>
           </>
         );
     }

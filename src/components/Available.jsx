@@ -48,7 +48,7 @@ const Available = () => {
                 value={daysForDistribute}
                 onChange={(e) => setDaysForDistribute(e.target.value)}
               />
-              <button className="btn btn-info m-2" className="btn btn-info" className="btn btn-info" className="btn btn-primary" onClick={handleDistribute}>Distribuir</button>
+              <button className="btn btn-info m-2" onClick={handleDistribute}>Distribuir</button>
             </label>
           </>
         );
@@ -62,17 +62,17 @@ const Available = () => {
                 value={moneyForSaved}
                 onChange={(e) => setMoneyForSaved(e.target.value)}
               />
-              <button className="btn btn-info m-2" className="btn btn-info" className="btn btn-info" className="btn btn-primary" onClick={()=> handleSaved(saved)}>Ahorrar</button>
+              <button className="btn btn-info m-2" onClick={()=> handleSaved(saved)}>Ahorrar</button>
             </label>
           </>
         );
       default:
         return (
           <>
-            <button className="btn btn-info m-2" className="btn btn-info" className="btn btn-info" className="btn btn-primary" onClick={() => setViewOption("distribute")}>
+            <button className="btn btn-info m-2" onClick={() => setViewOption("distribute")}>
               Repartir en dias
             </button>
-            <button className="btn btn-info m-2" className="btn btn-info" className="btn btn-info" className="btn btn-primary" onClick={() => setViewOption("save")}>Ahorrar</button>
+            <button className="btn btn-info m-2" onClick={() => setViewOption("save")}>Ahorrar</button>
           </>
         );
     }

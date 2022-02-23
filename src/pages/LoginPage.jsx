@@ -19,7 +19,7 @@ const LoginPage = () => {
             />
         </label>
         <Link to="/StartingAcount">
-          <button>Login</button>
+          <button className="btn btn-info m-2">Login</button>
         </Link>
       </form>
     </div>
