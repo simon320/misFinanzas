@@ -19,8 +19,8 @@ const Date = () => {
               $
               <input type="number" placeholder="00.0" />
             </label>
-            <button>✚</button>
-            <button onClick={() => setActionAdd("")}>✘</button>
+            <button className="btn btn-info m-2">✚</button>
+            <button className="btn btn-info m-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
 
@@ -40,16 +40,16 @@ const Date = () => {
                 placeholder="00.0"
               />
             </label>
-            <button>✚</button>
-            <button onClick={() => setActionAdd("")}>✘</button>
+            <button className="btn btn-info m-2">✚</button>
+            <button className="btn btn-info m-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
 
       default:
         return (
           <>
-            <button onClick={() => setActionAdd("income")}>Ingreso</button>
-            <button onClick={() => setActionAdd("expenses")}>Gasto</button>
+            <button className="btn btn-info m-2" onClick={() => setActionAdd("income")}>Ingreso</button>
+            <button className="btn btn-info m-2" onClick={() => setActionAdd("expenses")}>Gasto</button>
           </>
         );
     }
@@ -74,7 +74,7 @@ const Date = () => {
         <br />
       </div>
       <div className="flex">
-        <button onClick={() => setActive(!active)}>✚</button>
+        <button className="btn btn-info m-2" onClick={() => setActive(!active)}>✚</button>
       </div>
     </>
   );

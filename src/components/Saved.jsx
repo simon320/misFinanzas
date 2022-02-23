@@ -52,7 +52,7 @@ const Saved = () => {
                 value={moneyForAccount}
                 onChange={(e) => setMoneyForAccount(e.target.value)}
               />
-              <button onClick={()=> handleTransfer(moneyForAccount, handleTransferAccount)}>Distribuir</button>
+              <button className="btn btn-info m-2" onClick={()=> handleTransfer(moneyForAccount, handleTransferAccount)}>Distribuir</button>
             </label>
           </>
         );
@@ -66,17 +66,17 @@ const Saved = () => {
                 value={moneyForBadge}
                 onChange={(e) => setMoneyForBadge(e.target.value)}
               />
-              <button onClick={()=> handleTransfer(moneyForBadge, handleTransferBadge)}>Ahorrar</button>
+              <button className="btn btn-info m-2" onClick={()=> handleTransfer(moneyForBadge, handleTransferBadge)}>Ahorrar</button>
             </label>
           </>
         );
       default:
         return (
           <>
-            <button onClick={() => setViewOption("addToAccount")}>
+            <button className="btn btn-info m-2" onClick={() => setViewOption("addToAccount")}>
               Agregar a disponible por dias
             </button>
-            <button onClick={() => setViewOption("badge")}>
+            <button className="btn btn-info m-2" onClick={() => setViewOption("badge")}>
               Ahorrar en Divizas
             </button>
           </>

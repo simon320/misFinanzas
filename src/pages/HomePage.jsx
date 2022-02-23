@@ -53,7 +53,7 @@ const HomePage = () => {
     setViewOptionSaved(!viewOptionSaved)
     setViewOptionAvailable(false)
   }
-
+  
   useEffect(()=>{
     setAmountPerDay(moneyInAccount / daysForDistribute)
     console.log("Me ejecute")
@@ -67,11 +67,11 @@ const HomePage = () => {
         <h1>misFinanzas</h1>
         <p>{nameUser}</p>
         <label>Cuenta
-          <button onClick={handleClickAvailable}>${moneyInAccount}</button>{" "}
+          <button className="btn btn-info m-2" onClick={handleClickAvailable}>${moneyInAccount}</button>{" "}
         </label>
         {" || "}
         <label>Ahorrado
-          <button onClick={handleClickSaved}>${savedMoney}</button>{" "}
+          <button className="btn btn-info m-2" onClick={handleClickSaved}>${savedMoney}</button>{" "}
         </label>
         {viewOptionAvailable && (
           <Available setViewOptionAvailable={setViewOptionAvailable} />
@@ -81,7 +81,7 @@ const HomePage = () => {
         <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link>{" "}
         <br />
-        <button onClick={() => confirmDelete(handleDelete)}>
+        <button className="btn btn-info m-2" onClick={() => confirmDelete(handleDelete)}>
           Borrar Usuario
         </button>
         {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
