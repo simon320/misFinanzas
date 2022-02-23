@@ -59,6 +59,8 @@ const HomePage = () => {
     console.log("Me ejecute")
   },[])
 
+  // const [dayStart, setDayStart] = useState("")
+  // console.log(dayStart)
   return (
     <div>
       <nav>
@@ -76,13 +78,13 @@ const HomePage = () => {
         )}
         {viewOptionSaved && <Saved setViewOptionSaved={setViewOptionSaved} />}{" "}
         <br />
-        <Link to={"../HomePage"}>Home</Link>{" "}
+        <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link>{" "}
         <br />
         <button onClick={() => confirmDelete(handleDelete)}>
           Borrar Usuario
         </button>
-        <input/>
+        {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
       </nav>
       <Outlet />
     </div>

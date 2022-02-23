@@ -71,7 +71,7 @@ const Calendar = () => {
                     >
                       <Link
                         className="link"
-                        to={`${col.value}`}
+                        to={"Date"}
                         col={col}
                         key={col.date}
                       >
@@ -88,7 +88,7 @@ const Calendar = () => {
           })}
         </tbody>
       </table>
-      <Date calendarRows={calendarRows} />
+      <Outlet />
     </div>
   );
 };
