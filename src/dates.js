@@ -11,8 +11,8 @@ let dates = [
         id: "22-02-2022",
         date: `${daysName[new Date("2022-02-22").getDay()]} ${new Date("2022-02-22").getDate()+1}`,
         amountAvailable: 0,
-        incomes: 0,
-        expenses: 0
+        incomesDay: [],
+        expensesDay: []
     },
     {
         id: "23-02-2022",
