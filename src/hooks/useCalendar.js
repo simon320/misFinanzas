@@ -6,7 +6,6 @@ const daysName = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado",
 const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Noviembre", "Diciembre"];
 
 
-
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
   const { amountPerDay } = useContext(FinanceContext)
 
@@ -38,15 +37,11 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
             ...calendarRows[i],
             {
               classes: "in-prev-month",
-              date: `${prevMonthStartingPoint}-${
-                selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()
-              }-${
-                selectedDate.getMonth() === 0
+              date: `${prevMonthStartingPoint}-${selectedDate.getMonth() === 0 ? 12 : selectedDate.getMonth()}-${selectedDate.getMonth() === 0
                   ? selectedDate.getFullYear() - 1
-                  : selectedDate.getFullYear()
-              }`,
+                  : selectedDate.getFullYear()}`,
               value: prevMonthStartingPoint,
-              nameDay: daysName[j]
+              nameDay: daysName[j - 1],
             },
           ];
           prevMonthStartingPoint++;
@@ -55,12 +50,10 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
             ...calendarRows[i],
             {
               classes: "",
-              date: `${currentMonthCounter}-${
-                selectedDate.getMonth() + 1
-              }-${selectedDate.getFullYear()}`,
+              date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
               amountPerDay: parseInt(amountPerDay).toFixed(2),
-              nameDay: daysName[j]
+              nameDay: daysName[(j-1)]
             },
           ];
           currentMonthCounter++;
@@ -70,12 +63,10 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
           ...calendarRows[i],
           {
             classes: "",
-            date: `${currentMonthCounter}-${
-              selectedDate.getMonth() + 1
-            }-${selectedDate.getFullYear()}`,
+            date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
             amountPerDay: parseInt(amountPerDay).toFixed(2),
-            nameDay: daysName[j]
+            nameDay: daysName[(j-1)]
           },
         ];
         currentMonthCounter++;
@@ -84,18 +75,13 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
           ...calendarRows[i],
           {
             classes: "in-next-month",
-            date: `${nextMonthCounter}-${
-              selectedDate.getMonth() + 2 === 13
+            date: `${nextMonthCounter}-${selectedDate.getMonth() + 2 === 13
                 ? 1
-                : selectedDate.getMonth() + 2
-            }
-                -${
-                  selectedDate.getMonth() + 2 === 13
+                : selectedDate.getMonth() + 2}-${selectedDate.getMonth() + 2 === 13
                     ? selectedDate.getFullYear() + 1
-                    : selectedDate.getFullYear()
-                }`,
+                    : selectedDate.getFullYear()}`,
             value: nextMonthCounter,
-            nameDay: daysName[j]
+            nameDay: daysName[(j-1)]
           },
         ];
         nextMonthCounter++;

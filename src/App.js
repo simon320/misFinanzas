@@ -17,7 +17,7 @@ function App() {
           <Route path="StartingAcount" element={<StartingAcount />} />
           <Route path="HomePage" element={<HomePage />}>
             <Route path="Calendar" element={<Calendar />} >
-              <Route path="Date" element={<Date />} />
+                {/* <Route path="Date" element={<Date />} /> */}
             </Route>
             <Route path="ForeignExchange" element={<ForeignExchange />} />
           </Route>

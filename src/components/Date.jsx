@@ -12,7 +12,7 @@ const init = () => {
   return dataIncome ? JSON.parse(dataIncome) : [];
 };
 
-const Date = () => {
+const Date = (props) => {
 
   const [state, dispatch] = useReducer(RowReducer, [], init);
 
@@ -20,8 +20,8 @@ const Date = () => {
     localStorage.setItem("dataIncome", JSON.stringify(state));
   }, [state]);
 
-  const { amountPerDay } = useContext(FinanceContext);
-  const [amount, setAmount] = useState(amountPerDay);
+    // const { amountPerDay } = useContext(FinanceContext);
+    const [amount, setAmount] = useState(props.amount);
 
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
@@ -65,10 +65,10 @@ const Date = () => {
           justifyContent: "space-around",
         }}
       >
-        <p> {dates[0].date}</p>
+        <p> {props.nameDay} {props.date}</p>
         <p>${amount}</p>
       </div>
-        <Row data={state} dispatch={dispatch} set={setAmount} amountP={amount} />
+        <Row data={state} dispatch={dispatch} amountP={amount} />
       <div className="flex"></div>
       <div className="flex">
         {active && optionAdd()}

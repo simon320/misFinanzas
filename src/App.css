@@ -81,3 +81,11 @@ td p {
   display: flex;
   justify-content: center;
 }
+
+.notView {
+  display: none;
+}
+
+.siView {
+  position: absolute;
+}

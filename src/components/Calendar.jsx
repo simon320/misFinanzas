@@ -1,14 +1,14 @@
-import React, { useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useCalendar } from "../hooks/useCalendar";
 import { Link, Outlet } from "react-router-dom";
 import { FinanceContext } from "../context/financeContext";
 import DateMont from "../components/DateMont";
 import Date from "./Date";
+import "../App.css"
 
 const Calendar = () => {
 
   let x = 1;
-  let y;
   const {
     today,
     calendarRows,
@@ -20,9 +20,14 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
-  // const dateClickHandle = () => {
-  //   console.log(selectedDate);
-  // };
+  const [classClick, setClassClick] = useState("notView")
+
+  const dateClickHandle = (e) => {
+    console.log(calendarRows)
+  };
+
+  console.log(calendarRows)
+
 
   return (
     <div className="container-div">
@@ -45,9 +50,11 @@ const Calendar = () => {
               <tr className="border-b-ligth" key={cols[0].date}>
                 {cols.map((col) =>
                   col.date === todayFormatted ? (
+                    
                     <td
                       key={x++}
                       className={`${col.classes} center today table-dark text-bold`}
+                      onClick={() => dateClickHandle()}
                     >
                       <Link
                         className="link"
@@ -60,7 +67,9 @@ const Calendar = () => {
                         </p>
                       </Link>
                     </td>
+                        
                   ) : (
+                    <>
                     <td
                       key={x++}
                       className={`center ${col.classes} ${
@@ -68,19 +77,24 @@ const Calendar = () => {
                         col.classes !== "in-next-month" &&
                         "text-bold"
                       }`}
-                    >
-                      <Link
+                      onClick={() => dateClickHandle(col)}
+                      >
+                      {/* <Link
                         className="link"
                         to={"Date"}
                         col={col}
                         key={col.date}
-                      >
+                        >
+                      </Link> */}
                         {col.value}
                         <p>
                           ${col.amountPerDay}
                         </p>
-                      </Link>
                     </td>
+                    <div key={col.date} className={classClick}>
+                    <Date nameDay={col.nameDay} date={col.value} amount={col.amountPerDay} />
+                  </div>
+                        </>
                   )
                 )}
               </tr>
@@ -88,7 +102,19 @@ const Calendar = () => {
           })}
         </tbody>
       </table>
-      <Outlet />
+      {/* <Outlet /> */}
+      {Object.values(calendarRows).map((cols) => {
+        return (
+          <div key={cols[0].value}>
+            {cols.map((col) => (
+              <div key={col.date} >
+                <Date nameDay={col.nameDay} date={col.value} amount={col.amountPerDay} />
+              </div>
+            ))}
+          </div>
+        )
+        })
+      }
     </div>
   );
 };
