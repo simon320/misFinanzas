@@ -8,7 +8,6 @@ const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "J
 
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
   const { amountPerDay } = useContext(FinanceContext)
-
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
@@ -23,7 +22,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
   let nextMonthCounter = 1;
   let rows = 5;
   const cols = 7;
-  const calendarRows = {};
+  const calendarRows = {}
 
   for (let i = 1; i < rows + 1; i++) {
     for (let j = 1; j < cols + 1; j++) {
@@ -93,8 +92,8 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
     today,
     daysShort,
     monthNames,
-    todayFormatted,
     calendarRows,
+    todayFormatted,
     selectedDate,
     daysInMonth,
     firstDayInMonth,

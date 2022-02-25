@@ -82,10 +82,18 @@ td p {
   justify-content: center;
 }
 
-.notView {
-  display: none;
+.absolute {
+  position: absolute;
+  background-color: rgb(247, 247, 253);
+  border-radius: 15px;
+  border: 1px solid black;
+  width: 450px;
+  margin: 0 auto;
+  z-index: 1000;
 }
 
-.siView {
-  position: absolute;
+.relative {
+  position: relative;
 }
+
+

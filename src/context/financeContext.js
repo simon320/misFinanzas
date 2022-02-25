@@ -1,11 +1,9 @@
 import { createContext, useState } from "react";
 import { useLocalStorage } from '../hooks/useLocalStorage'
 
-
 export const FinanceContext = createContext();
 
 export const FinanceProvider = ({ children }) => {
-
   const [nameUser, setNameUser] = useLocalStorage('nameUser', '')
 
   const [moneyInAccount, setMoneyInAccount] = useLocalStorage('moneyInAccount', 0)
@@ -27,7 +25,7 @@ export const FinanceProvider = ({ children }) => {
         amountPerDay, setAmountPerDay,
         daysForDistribute, setDaysForDistribute,
         viewOptionAvailable, setViewOptionAvailable,
-        viewOptionSaved, setViewOptionSaved
+        viewOptionSaved, setViewOptionSaved,
       }}
     >
       {children}
