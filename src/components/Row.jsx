@@ -1,7 +1,9 @@
 import React, { useEffect, useState, useContext } from "react";
 import { FinanceContext } from "../context/financeContext";
 
-const Row = ({ data, dispatch, set, amountP }) => {
+let x=1;
+
+const Row = ({ data, dispatch }) => {
   const handleDelete = (id) => {
     const actionDelete = {
       type: "delete",
@@ -10,13 +12,8 @@ const Row = ({ data, dispatch, set, amountP }) => {
     dispatch(actionDelete);
   };
 
-  useEffect(()=>{
-    !data && set(parseInt(amountP) + parseInt(data[0].amount))
-  }, [data])
 
   return (
-    <>
-      {/* <p>{set}</p> */}
     <table className="center">
       <tbody>
         {data.map((item) => {
@@ -52,7 +49,6 @@ const Row = ({ data, dispatch, set, amountP }) => {
         })}
       </tbody>
     </table>
-        </>
   );
 };
 

@@ -41,6 +41,8 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                   : selectedDate.getFullYear()}`,
               value: prevMonthStartingPoint,
               nameDay: daysName[j - 1],
+              income: 0,
+              expense: 0
             },
           ];
           prevMonthStartingPoint++;
@@ -52,7 +54,9 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
               date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
               amountPerDay: parseInt(amountPerDay).toFixed(2),
-              nameDay: daysName[(j-1)]
+              nameDay: daysName[(j-1)],
+              income: 0,
+              expense: 0
             },
           ];
           currentMonthCounter++;
@@ -65,7 +69,9 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
             date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
             amountPerDay: parseInt(amountPerDay).toFixed(2),
-            nameDay: daysName[(j-1)]
+            nameDay: daysName[(j-1)],
+            income: 0,
+            expense: 0
           },
         ];
         currentMonthCounter++;
@@ -80,7 +86,9 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                     ? selectedDate.getFullYear() + 1
                     : selectedDate.getFullYear()}`,
             value: nextMonthCounter,
-            nameDay: daysName[(j-1)]
+            nameDay: daysName[(j-1)],
+            income: 0,
+            expense: 0
           },
         ];
         nextMonthCounter++;

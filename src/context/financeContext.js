@@ -14,6 +14,9 @@ export const FinanceProvider = ({ children }) => {
   const [daysForDistribute, setDaysForDistribute] = useLocalStorage('daysForDistribute', 0);
   const [viewOptionAvailable, setViewOptionAvailable] = useState(false);
   const [viewOptionSaved, setViewOptionSaved] = useState(false);
+  
+  let dataCalendar = useLocalStorage('dataCalendar', {});
+
 
   return (
     <FinanceContext.Provider
@@ -26,6 +29,7 @@ export const FinanceProvider = ({ children }) => {
         daysForDistribute, setDaysForDistribute,
         viewOptionAvailable, setViewOptionAvailable,
         viewOptionSaved, setViewOptionSaved,
+        dataCalendar
       }}
     >
       {children}

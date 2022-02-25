@@ -5,6 +5,7 @@ import { useCalendar } from "../hooks/useCalendar";
 import Available from "../components/Available";
 import Saved from "../components/Saved";
 
+
 const HomePage = () => {
   const {
     nameUser, setNameUser,
@@ -27,6 +28,9 @@ const HomePage = () => {
     firstDayInMonth,
   } = useCalendar();
   const navigation = useNavigate();
+
+
+
 
   const confirmDelete = (callback) => {
      const deleteUser = window.confirm('¿Esta seguro que desea borrar todos los datos de su cuenta?')

@@ -23,7 +23,7 @@ const RowIncomeAdd = ({ dispatch }) => {
     });
   };
 
-  const handleAdd = (e) => {
+  const handleAdd = () => {
     dispatch(actionAdd);
     setData({ character: "", description: "", amount: "" });
   };
@@ -52,7 +52,7 @@ const RowIncomeAdd = ({ dispatch }) => {
           autoComplete="off"
         />
       </label>
-      <button className="btn btn-success mx-2" onClick={handleAdd}>
+      <button className="btn btn-success mx-2" onClick={handleAdd} >
         ✚
       </button>
     </>

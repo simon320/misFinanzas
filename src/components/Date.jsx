@@ -5,6 +5,7 @@ import { RowReducer } from "../reducers/RowReducer";
 import RowIncomeAdd from "./RowIncomeAdd";
 import RowExpenseAdd from "./RowExpenseAdd";
 import Row from "./Row";
+import { useLocalStorage } from "../hooks/useLocalStorage";
 
 
 const init = () => {
@@ -20,8 +21,7 @@ const Date = (props) => {
     localStorage.setItem("dataIncome", JSON.stringify(state));
   }, [state]);
 
-    // const { amountPerDay } = useContext(FinanceContext);
-    const [amount, setAmount] = useState(props.amount);
+  const [amount, setAmount] = useState(props.amount);
 
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
@@ -68,8 +68,10 @@ const Date = (props) => {
         <p> {props.nameDay} {props.date}</p>
         <p>${amount}</p>
       </div>
-        <Row data={state} dispatch={dispatch} amountP={amount} />
-      <div className="flex"></div>
+        <Row data={state} dispatch={dispatch} amountP={amount} key={props.date} />
+      <div className="flex">
+        Ingreso: {props.income}
+      </div>
       <div className="flex">
         {active && optionAdd()}
         <br />
