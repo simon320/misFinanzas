@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 
+let x = 1;
 
-const RowIncomeAdd = ({ dispatch }) => {
+const RowIncomeAdd = ({ date, dispatch }) => {
+  x++;
+  
   const [data, setData] = useState({ character: "", description: "", amount: "" });
 
   const { description, amount } = data;
@@ -9,7 +12,7 @@ const RowIncomeAdd = ({ dispatch }) => {
   const actionAdd = {
     type: "add",
     payload: {
-      id: description,
+      id: `${date}+${x}`,
       character: "Ingreso",
       description,
       amount,

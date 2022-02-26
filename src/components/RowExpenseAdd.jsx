@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 
-const RowExpenseAdd = ({ dispatch }) => {
+let y = 1;
+
+const RowExpenseAdd = ({date, dispatch }) => {
+  y++
+
   const [data, setData] = useState({
     character: "",
     description: "",
@@ -12,7 +16,7 @@ const RowExpenseAdd = ({ dispatch }) => {
   const actionAdd = {
     type: "add",
     payload: {
-      id: description,
+      id: `${date}+${y}`,
       character: "Gasto",
       description,
       amount,

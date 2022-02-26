@@ -32,7 +32,7 @@ const Date = (props) => {
       case "income":
         return (
           <>
-            <RowIncomeAdd dispatch={dispatch} setActionAdd={setActionAdd} />
+            <RowIncomeAdd dispatch={dispatch} setActionAdd={setActionAdd} date={props.date} />
             <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
@@ -40,7 +40,7 @@ const Date = (props) => {
       case "expenses":
         return (
           <>
-            <RowExpenseAdd dispatch={dispatch} setActionAdd={setActionAdd} />
+            <RowExpenseAdd dispatch={dispatch} setActionAdd={setActionAdd} date={props.date} />
             <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
@@ -55,6 +55,7 @@ const Date = (props) => {
     }
   };
 
+
   return (
     <>
       <div
@@ -65,17 +66,17 @@ const Date = (props) => {
           justifyContent: "space-around",
         }}
       >
-        <p> {props.nameDay} {props.date}</p>
+        <p> {props.nameDay} {props.value}</p>
         <p>${amount}</p>
       </div>
-        <Row data={state} dispatch={dispatch} amountP={amount} key={props.date} />
-      <div className="flex">
-        Ingreso: {props.income}
-      </div>
+
+      <Row data={state} dispatch={dispatch} amountP={amount} key={props.value} date={props.date} />
+
       <div className="flex">
         {active && optionAdd()}
         <br />
       </div>
+
       <div className="flex">
         <button className="btn btn-info m-2" onClick={() => setActive(!active)}>✚</button>
       </div>

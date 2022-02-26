@@ -27,11 +27,7 @@ const Calendar = () => {
 
   const handleClick = (e) => {
     setViewDate(e.date);
-    console.log(viewDate);
-  };
-
-  const handleClose = () => {
-    !viewDate == "" && setViewDate("");
+    console.log(e.date);
   };
 
   console.log(dataCalendar);
@@ -80,21 +76,6 @@ const Calendar = () => {
                     >
                       {col.value}
                       <p>${col.amountPerDay}</p>
-                      {/* {col.date == viewDate && (
-                        <div className="absolute">
-                          <Date
-                            nameDay={col.nameDay}
-                            date={col.value}
-                            amount={col.amountPerDay}
-                          />
-                          <button
-                            onClick={() => handleClose(col)}
-                            className="btn btn-danger badge px-3 my-1"
-                          >
-                            ✘
-                          </button>
-                        </div>
-                      )} */}
                     </td>
                   )
                 )}
@@ -106,7 +87,7 @@ const Calendar = () => {
       {Object.values(calendarRows).map((cols) => {
         return (
           <div key={cols[0].date}>
-            {cols.map((date) => date.date == viewDate && <Date key={date.value} income={date.income} nameDay={date.nameDay} date={date.value} amount={date.amountPerDay}/>)}
+            {cols.map((date) => date.date == viewDate && <Date key={date.value} income={date.income} nameDay={date.nameDay} value={date.value} date={date.date} amount={date.amountPerDay}/>)}
           </div>
         )
       })}
