@@ -70,7 +70,7 @@ const Date = (props) => {
         <p>${amount}</p>
       </div>
 
-      <Row data={state} dispatch={dispatch} amountP={amount} key={props.value} date={props.date} />
+      <Row data={state} dispatch={dispatch} amountP={amount} key={props.value} date={props.date} setEditDayTrue={props.setEditDayTrue} />
 
       <div className="flex">
         {active && optionAdd()}

@@ -6,6 +6,7 @@ import { FinanceContext } from "../context/financeContext";
 import DateMont from "../components/DateMont";
 import Date from "./Date";
 import "../App.css";
+import editDay from "../assets/editDay1.png"
 
 const Calendar = () => {
   const {
@@ -58,22 +59,29 @@ const Calendar = () => {
                   col.date === todayFormatted ? (
                     <td
                       key={col.date}
-                      className={`${col.classes} center today table-dark text-bold`}
+                      className={`${col.classes} center relative today table-dark text-bold`}
                       onClick={() => handleClick(col)}
                     >
+                      
+                      <img src={editDay} alt="" className="img-editDay" />
+                      
                       {col.value}
                       <p className="avaible">${col.amountPerDay}</p>
+                      
                     </td>
                   ) : (
                     <td
                       key={col.date}
-                      className={`center ${col.classes} ${
+                      className={`center relative ${col.classes} ${
                         col.classes !== "in-prev-month" &&
                         col.classes !== "in-next-month" &&
                         "text-bold"
                       }`}
                       onClick={() => handleClick(col)}
                     >
+                    
+                      <img src={editDay} alt="" className="img-editDay" />
+                      
                       {col.value}
                       <p>${col.amountPerDay}</p>
                     </td>
@@ -87,7 +95,7 @@ const Calendar = () => {
       {Object.values(calendarRows).map((cols) => {
         return (
           <div key={cols[0].date}>
-            {cols.map((date) => date.date == viewDate && <Date key={date.value} income={date.income} nameDay={date.nameDay} value={date.value} date={date.date} amount={date.amountPerDay}/>)}
+            {cols.map((date) => date.date == viewDate && <Date key={date.value} income={date.income} nameDay={date.nameDay} value={date.value} date={date.date} amount={date.amountPerDay} />)}
           </div>
         )
       })}

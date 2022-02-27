@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useContext } from "react";
 import { FinanceContext } from "../context/financeContext";
 
-let x=1;
 
 const Row = ({ data, date, dispatch }) => {
+
+
   const handleDelete = (id) => {
     const actionDelete = {
       type: "delete",
@@ -12,7 +13,11 @@ const Row = ({ data, date, dispatch }) => {
     dispatch(actionDelete);
   };
 
-console.log(date)
+  let dataArray = data.map((row)=> (row.id).includes(date) && <p key={row.amount}>{parseInt(row.amount)}</p>)
+  let dayDataArray = dataArray.filter((dayData)=> dayData !== false)
+
+
+console.log(dayDataArray)
   return (
     <table className="center">
       <tbody>
@@ -43,7 +48,7 @@ console.log(date)
                     className="btn btn-danger badge px-3 my-1"
                     >
                     ✘
-                  </button>
+                  </button>(
                 </td>
               </tr>
             )
@@ -53,9 +58,7 @@ console.log(date)
       <tfoot>
         <tr>
           <td>Ingresos: 
-            {
-              data.map((ic) => ic.amount)
-            }
+            {dataArray}
           </td>
         </tr>
       </tfoot>
@@ -64,5 +67,3 @@ console.log(date)
 };
 
 export default Row;
-
-// item.character == "Ingreso" &&

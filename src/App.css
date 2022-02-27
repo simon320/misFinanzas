@@ -96,4 +96,10 @@ td p {
   position: relative;
 }
 
-
+.img-editDay {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+}
