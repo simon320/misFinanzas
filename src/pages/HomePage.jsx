@@ -60,7 +60,6 @@ const HomePage = () => {
   
   useEffect(()=>{
     setAmountPerDay(moneyInAccount / daysForDistribute)
-    console.log("Me ejecute")
   },[])
 
   // const [dayStart, setDayStart] = useState("")

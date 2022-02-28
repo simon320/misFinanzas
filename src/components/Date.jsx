@@ -21,7 +21,7 @@ const Date = (props) => {
     localStorage.setItem("dataIncome", JSON.stringify(state));
   }, [state]);
 
-  const [amount, setAmount] = useState(props.amount);
+  const [amountDay, setAmountDay] = useState(props.amountPerDay);
 
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
@@ -67,10 +67,10 @@ const Date = (props) => {
         }}
       >
         <p> {props.nameDay} {props.value}</p>
-        <p>${amount}</p>
+        <p>${amountDay}</p>
       </div>
 
-      <Row data={state} dispatch={dispatch} amountP={amount} key={props.value} date={props.date} setEditDayTrue={props.setEditDayTrue} />
+      <Row data={state} dispatch={dispatch} amountDay={amountDay} setAmountDay={setAmountDay} key={props.value} date={props.date} />
 
       <div className="flex">
         {active && optionAdd()}

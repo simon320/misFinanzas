@@ -6,7 +6,7 @@ import { FinanceContext } from "../context/financeContext";
 import DateMont from "../components/DateMont";
 import Date from "./Date";
 import "../App.css";
-import editDay from "../assets/editDay1.png"
+import editDay from "../assets/editDay1.png";
 
 const Calendar = () => {
   const {
@@ -28,10 +28,7 @@ const Calendar = () => {
 
   const handleClick = (e) => {
     setViewDate(e.date);
-    console.log(e.date);
   };
-
-  console.log(dataCalendar);
 
   return (
     <div className="container-div">
@@ -62,12 +59,9 @@ const Calendar = () => {
                       className={`${col.classes} center relative today table-dark text-bold`}
                       onClick={() => handleClick(col)}
                     >
-                      
                       <img src={editDay} alt="" className="img-editDay" />
-                      
                       {col.value}
                       <p className="avaible">${col.amountPerDay}</p>
-                      
                     </td>
                   ) : (
                     <td
@@ -79,11 +73,9 @@ const Calendar = () => {
                       }`}
                       onClick={() => handleClick(col)}
                     >
-                    
-                      <img src={editDay} alt="" className="img-editDay" />
-                      
+                      {/* <img src={editDay} alt="" className="img-editDay" /> */}
                       {col.value}
-                      <p>${col.amountPerDay}</p>
+                      <p className="avaible">${col.amountPerDay}</p>
                     </td>
                   )
                 )}
@@ -92,12 +84,24 @@ const Calendar = () => {
           })}
         </tbody>
       </table>
-      {Object.values(calendarRows).map((cols) => {
+      {Object.values(calendarRows).map((week) => {
         return (
-          <div key={cols[0].date}>
-            {cols.map((date) => date.date == viewDate && <Date key={date.value} income={date.income} nameDay={date.nameDay} value={date.value} date={date.date} amount={date.amountPerDay} />)}
+          <div key={week[0].date}>
+            {week.map(
+              (date) =>
+                date.date == viewDate && (
+                  <Date
+                    key={date.value}
+                    income={date.income}
+                    nameDay={date.nameDay}
+                    value={date.value}
+                    date={date.date}
+                    amountPerDay={date.amountPerDay}
+                  />
+                )
+            )}
           </div>
-        )
+        );
       })}
     </div>
   );

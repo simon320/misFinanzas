@@ -50,7 +50,7 @@ const RowIncomeAdd = ({ date, dispatch }) => {
           onChange={handleChange}
           name="amount"
           value={amount}
-          type="text"
+          type="number"
           placeholder="monto"
           autoComplete="off"
         />
