@@ -1,21 +1,22 @@
-import React, { useEffect, useState, useContext } from "react";
-import { FinanceContext } from "../context/financeContext";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { deleteRegisterDB } from "../redux/actions/dateRegister";
 
-const Row = ({ data, date, dispatch, setAmountDay, amountDay }) => {
+const Row = ({ date, currentDate }) => {
+
+  const dispatch = useDispatch()
+
   const handleDelete = (id) => {
-    const actionDelete = {
-      type: "delete",
-      payload: id,
-    };
-    dispatch(actionDelete);
+    dispatch(deleteRegisterDB(id))
   };
 
   
-  let dataArray = data.filter((row) => row.id.includes(date)); //Filtro los ObjetosMovimientos hechos solo en este dia.
-  
+  // let dataArray = data.filter((row) => row.id.includes(date)); //Filtro los ObjetosMovimientos hechos solo en este dia.
+  let dataArray = currentDate.filter((row) => row.date.includes(date)); //Filtro los ObjetosMovimientos hechos solo en este dia.
+
   // TOTAL INCOME
   let income = 0
-  let dayIncomesTrue = dataArray.map((dayIncome) => dayIncome.character !== "Gasto" && dayIncome.amount)//Creo array con los montos de los ingresos y valor "false" en lugar de gastos.
+  let dayIncomesTrue = dataArray.map((dayIncome) => dayIncome.character !== "Gasto" && dayIncome.incomes)//Creo array con los montos de los ingresos y valor "false" en lugar de gastos.
   let dayIncomeArray = dayIncomesTrue.filter((amountIncome) => amountIncome !== false)//Array de monto de ingresos.
   for (let i = 0; i < dayIncomeArray.length; i++) {
     income += parseInt(dayIncomeArray[i]);
@@ -24,28 +25,27 @@ const Row = ({ data, date, dispatch, setAmountDay, amountDay }) => {
   
   // TOTAL EXPENSE
   let expense = 0
-  let dayExpensesTrue = dataArray.map((dayExpense) => dayExpense.character !== "Ingreso" && dayExpense.amount)//Creo array con los montos de los gastos y valor "false" en lugar de ingresos.
+  let dayExpensesTrue = dataArray.map((dayExpense) => dayExpense.character !== "Ingreso" && dayExpense.expense)//Creo array con los montos de los gastos y valor "false" en lugar de ingresos.
   let dayExpenseArray = dayExpensesTrue.filter((amountExpense) => amountExpense !== false)//Array de monto de gastos.
   for (let i = 0; i < dayExpenseArray.length; i++) {
     expense += parseInt(dayExpenseArray[i]);
   }
-  useEffect(()=>{
-    setAmountDay((amountDay + income) - expense);
-  }, [income])
-  
-  console.log(`ingreso: ${income}`);
-  console.log(`gasto: ${expense}`);
+
+  // useEffect(()=>{
+  //   setAmountDay((amountDay + income) - expense);
+  // }, [income])
+
   return (
     <table className="center">
       <tbody>
-        {data.map((item) => {
+        {currentDate.map((item) => {
           return (
-            item.id.includes(date) &&
+            item.date.includes(date) &&
             (item.character == "Ingreso" ? (
               <tr className="incomeRow" key={item.id}>
                 <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
-                <td className="text-center">${item.amount}</td>
+                <td className="text-center">${item.incomes}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}
@@ -59,7 +59,7 @@ const Row = ({ data, date, dispatch, setAmountDay, amountDay }) => {
               <tr className="expenseRow" key={item.id}>
                 <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
-                <td className="text-center">-${item.amount}</td>
+                <td className="text-center">-${item.expense}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}
@@ -76,10 +76,10 @@ const Row = ({ data, date, dispatch, setAmountDay, amountDay }) => {
       <tfoot>
         <tr>
           <td colSpan={2}>
-            Ingresos: {income}
+            Ingresos: ${income}
           </td>
           <td colSpan={2}>
-            Gastos: {expense}
+            Gastos: ${expense}
           </td>
         </tr>
       </tfoot>

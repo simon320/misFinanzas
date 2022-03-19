@@ -110,3 +110,13 @@ td p {
 .expenseRow {
   background-color: rgba(250, 157, 51, 0.363);
 }
+
+label {
+  display: block;
+  margin: 15px;
+}
+
+.rigth {
+  float: right;
+  margin-right: 550px;
+}

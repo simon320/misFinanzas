@@ -1,27 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { recordExpense } from "../redux/actions/dateRegister";
 
-let y = 1;
 
-const RowExpenseAdd = ({date, dispatch }) => {
-  y++
+const RowExpenseAdd = ({ date }) => {
 
   const [data, setData] = useState({
     character: "",
     description: "",
-    amount: "",
+    expense: "",
   });
 
-  const { description, amount } = data;
+  const dispatch = useDispatch();
 
-  const actionAdd = {
-    type: "add",
-    payload: {
-      id: `${date}+${y}`,
-      character: "Gasto",
-      description,
-      amount,
-    },
-  };
+  const { description, expense } = data;
 
   const handleChange = (e) => {
     setData({
@@ -31,8 +23,8 @@ const RowExpenseAdd = ({date, dispatch }) => {
   };
 
   const handleAdd = (e) => {
-    dispatch(actionAdd);
-    setData({ character: "", description: "", amount: "" });
+    dispatch(recordExpense(date, description, expense));
+    setData({ character: "", description: "", expense: "" });
   };
 
   return (
@@ -52,8 +44,8 @@ const RowExpenseAdd = ({date, dispatch }) => {
         $
         <input
           onChange={handleChange}
-          name="amount"
-          value={amount}
+          name="expense"
+          value={expense}
           type="text"
           placeholder="monto"
           autoComplete="off"

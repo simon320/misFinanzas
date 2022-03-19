@@ -1,46 +1,31 @@
-import React, { useState, useEffect, useContext, useReducer } from "react";
-import dates from "../dates";
-import { FinanceContext } from "../context/financeContext";
-import { RowReducer } from "../reducers/RowReducer";
+import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import Row from "./Row";
 import RowIncomeAdd from "./RowIncomeAdd";
 import RowExpenseAdd from "./RowExpenseAdd";
-import Row from "./Row";
-import { useLocalStorage } from "../hooks/useLocalStorage";
 
-
-const init = () => {
-  const dataIncome = localStorage.getItem("dataIncome");
-  return dataIncome ? JSON.parse(dataIncome) : [];
-};
 
 const Date = (props) => {
-
-  const [state, dispatch] = useReducer(RowReducer, [], init);
-
-  useEffect(() => {
-    localStorage.setItem("dataIncome", JSON.stringify(state));
-  }, [state]);
+  const currentDate = useSelector((state) => state.registerReducer.dataRegister);
 
   const [amountDay, setAmountDay] = useState(props.amountPerDay);
-
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
-  const [expenses, setExpenses] = useState(0);
 
   const optionAdd = () => {
     switch (actionAdd) {
       case "income":
         return (
           <>
-            <RowIncomeAdd dispatch={dispatch} setActionAdd={setActionAdd} date={props.date} />
+            <RowIncomeAdd date={props.date} />
             <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
 
-      case "expenses":
+      case "expense":
         return (
           <>
-            <RowExpenseAdd dispatch={dispatch} setActionAdd={setActionAdd} date={props.date} />
+            <RowExpenseAdd date={props.date} />
             <button className="btn btn-danger mx-2" onClick={() => setActionAdd("")}>✘</button>
           </>
         );
@@ -49,7 +34,7 @@ const Date = (props) => {
         return (
           <>
             <button className="btn btn-success m-2" onClick={() => setActionAdd("income")}>Ingreso</button>
-            <button className="btn btn-danger m-2" onClick={() => setActionAdd("expenses")}>Gasto</button>
+            <button className="btn btn-danger m-2" onClick={() => setActionAdd("expense")}>Gasto</button>
           </>
         );
     }
@@ -70,7 +55,7 @@ const Date = (props) => {
         <p>${amountDay}</p>
       </div>
 
-      <Row data={state} dispatch={dispatch} amountDay={amountDay} setAmountDay={setAmountDay} key={props.value} date={props.date} />
+      <Row currentDate={currentDate} date={props.date} />
 
       <div className="flex">
         {active && optionAdd()}

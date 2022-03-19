@@ -1,23 +1,19 @@
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import { addRegister, recordIncome } from "../redux/actions/dateRegister";
 
-let x = 1;
 
-const RowIncomeAdd = ({ date, dispatch }) => {
-  x++;
-  
-  const [data, setData] = useState({ character: "", description: "", amount: "" });
+const RowIncomeAdd = ({ date }) => {
 
-  const { description, amount } = data;
+  const [data, setData] = useState({
+    character: "",
+    description: "",
+    income: 0,
+  });
 
-  const actionAdd = {
-    type: "add",
-    payload: {
-      id: `${date}+${x}`,
-      character: "Ingreso",
-      description,
-      amount,
-    },
-  };
+  const dispatch = useDispatch();
+
+  const { description, income } = data;
 
   const handleChange = (e) => {
     setData({
@@ -27,9 +23,10 @@ const RowIncomeAdd = ({ date, dispatch }) => {
   };
 
   const handleAdd = () => {
-    dispatch(actionAdd);
-    setData({ character: "", description: "", amount: "" });
+    dispatch(recordIncome(date, description, income));
+    setData({ character: "", description: "", income: 0 });
   };
+
 
   return (
     <>
@@ -48,14 +45,14 @@ const RowIncomeAdd = ({ date, dispatch }) => {
         $
         <input
           onChange={handleChange}
-          name="amount"
-          value={amount}
+          name="income"
+          value={income}
           type="number"
           placeholder="monto"
           autoComplete="off"
         />
       </label>
-      <button className="btn btn-success mx-2" onClick={handleAdd} >
+      <button className="btn btn-success mx-2" onClick={handleAdd}>
         ✚
       </button>
     </>

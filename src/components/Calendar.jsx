@@ -3,7 +3,6 @@ import { useCalendar } from "../hooks/useCalendar";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { Link, Outlet } from "react-router-dom";
 import { FinanceContext } from "../context/financeContext";
-import DateMont from "../components/DateMont";
 import Date from "./Date";
 import "../App.css";
 import editDay from "../assets/editDay1.png";
@@ -20,11 +19,11 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
-  let { dataCalendar } = useContext(FinanceContext);
+  // let { dataCalendar } = useContext(FinanceContext);
 
   const [viewDate, setViewDate] = useState("");
 
-  dataCalendar = calendarRows;
+  // dataCalendar = calendarRows;
 
   const handleClick = (e) => {
     setViewDate(e.date);
@@ -49,7 +48,7 @@ const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          {Object.values(dataCalendar).map((cols) => {
+          {Object.values(calendarRows).map((cols) => {
             return (
               <tr className="border-b-ligth" key={cols[0].date}>
                 {cols.map((col) =>

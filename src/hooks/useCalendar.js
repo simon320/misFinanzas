@@ -7,7 +7,7 @@ const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "J
 
 
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
-  const { amountPerDay } = useContext(FinanceContext)
+  // const { amountPerDay } = useContext(FinanceContext)
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
@@ -53,7 +53,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
               classes: "",
               date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
-              amountPerDay: parseInt(amountPerDay).toFixed(2),
+              // amountPerDay: parseInt(amountPerDay).toFixed(2),
               nameDay: daysName[(j-1)],
               income: 0,
               expense: 0
@@ -68,7 +68,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
             classes: "",
             date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
-            amountPerDay: parseInt(amountPerDay).toFixed(2),
+            // amountPerDay: parseInt(amountPerDay).toFixed(2),
             nameDay: daysName[(j-1)],
             income: 0,
             expense: 0

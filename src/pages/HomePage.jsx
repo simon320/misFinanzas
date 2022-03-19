@@ -1,95 +1,73 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Outlet, Link, useNavigate } from "react-router-dom";
-import { FinanceContext } from "../context/financeContext";
+import { Link } from "react-router-dom";
 import { useCalendar } from "../hooks/useCalendar";
-import Available from "../components/Available";
-import Saved from "../components/Saved";
+import { useSelector, useDispatch } from "react-redux";
+
+import { cleanLogout, createRegister } from "../redux/actions/dateRegister";
+import { logout } from "../redux/actions/auth";
+import Calendar from "../components/Calendar";
+import { Redirect } from "react-router-dom";
+import { Switch } from "react-router-dom";
+import { Route } from "react-router-dom";
+import ForeignExchange from "../components/ForeignExchange";
+import { useRouteMatch } from "react-router-dom";
+import { createAcount } from "../redux/actions/acount";
 
 
 const HomePage = () => {
-  const {
-    nameUser, setNameUser,
-    moneyInAccount, setMoneyInAccount,
-    viewOptionAvailable, setViewOptionAvailable,
-    savedMoney, setSavedMoney,
-    setAmountPerDay,
-    setMoneyInBadge,
-    daysForDistribute, setDaysForDistribute,
-    viewOptionSaved, setViewOptionSaved,
-  } = useContext(FinanceContext);
-  const {
-    today,
-    calendarRows,
-    selectedDate,
-    todayFormatted,
-    daysShort,
-    monthNames,
-    daysInMonth,
-    firstDayInMonth,
-  } = useCalendar();
-  const navigation = useNavigate();
+  const username = useSelector((state) => state.authReducer.displayName);
+  const amount = useSelector((state) => state.acountReducer);
+  const dispatch = useDispatch();
 
-
-
-
-  const confirmDelete = (callback) => {
-     const deleteUser = window.confirm('¿Esta seguro que desea borrar todos los datos de su cuenta?')
-     deleteUser && callback()
-  }
-
-  const handleDelete = () => {
-      setNameUser("");
-      setMoneyInAccount(0);
-      setSavedMoney(0);
-      setMoneyInBadge(0);
-      setAmountPerDay(0);
-      setDaysForDistribute(daysInMonth);
-      setViewOptionSaved(false);
-      setViewOptionAvailable(false);
-      navigation("/");
+  console.log(amount)
+  const handleAdd = () => {
+    dispatch(createRegister());
   };
 
-  const handleClickAvailable = () =>{
-    setViewOptionAvailable(!viewOptionAvailable)
-    setViewOptionSaved(false)
-  }
-  const handleClickSaved = () =>{
-    setViewOptionSaved(!viewOptionSaved)
-    setViewOptionAvailable(false)
-  }
-  
-  useEffect(()=>{
-    setAmountPerDay(moneyInAccount / daysForDistribute)
-  },[])
+  // const navigation = useNavigate();
 
-  // const [dayStart, setDayStart] = useState("")
-  // console.log(dayStart)
+  // const confirmDelete = (callback) => {
+  //   const deleteUser = window.confirm(
+  //     "¿Esta seguro que desea borrar todos los datos de su cuenta?"
+  //   );
+  //   deleteUser && callback();
+  // };
+
+  let {path, url} = useRouteMatch();
+
+  const handleLogout = () => {
+    dispatch(cleanLogout())
+    dispatch(logout());
+  };
+
+
   return (
     <div>
+
+      <h1>Home Page</h1>
+      <button onClick={handleAdd}>Agregar</button>
+
       <nav>
         <h1>misFinanzas</h1>
-        <p>{nameUser}</p>
-        <label>Cuenta
-          <button className="btn btn-info m-2" onClick={handleClickAvailable}>${moneyInAccount}</button>{" "}
-        </label>
-        {" || "}
-        <label>Ahorrado
-          <button className="btn btn-info m-2" onClick={handleClickSaved}>${savedMoney}</button>{" "}
-        </label>
-        {viewOptionAvailable && (
-          <Available setViewOptionAvailable={setViewOptionAvailable} />
-        )}
-        {viewOptionSaved && <Saved setViewOptionSaved={setViewOptionSaved} />}{" "}
-        <br />
-        <Link to={"Calendar"}>Home</Link>{" "}
-        <Link to={"ForeignExchange"}>Divizas</Link>{" "}
-        <br />
-        <button className="btn btn-danger m-2" onClick={() => confirmDelete(handleDelete)}>
-          Borrar Usuario
-        </button>
-        {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
+        <p>{username}</p>
+          <button className="btn btn-danger rigth" onClick={handleLogout}>
+            Cerrar Seccion
+          </button>
       </nav>
-      <Outlet />
+
+      <Link to={`${url}/calendario`}>Calendario</Link>{" "}
+      <Link to={`${url}/divizas`}>Divizas</Link> 
+      <br />
+
+      <section>
+        <Switch>
+          <Route path={`${path}/divizas`} component={ForeignExchange} />
+          <Route path={`${path}/calendario`} component={Calendar} />
+
+          <Redirect to={`${url}/calendario`}/>
+        </Switch>
+      </section>
+
     </div>
   );
 };
