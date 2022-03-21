@@ -16,13 +16,9 @@ import { createAcount } from "../redux/actions/acount";
 
 const HomePage = () => {
   const username = useSelector((state) => state.authReducer.displayName);
-  const amount = useSelector((state) => state.acountReducer);
+  const amount = useSelector((state) => state.acountReducer.data[0].amount.amount);
   const dispatch = useDispatch();
 
-  console.log(amount)
-  const handleAdd = () => {
-    dispatch(createRegister());
-  };
 
   // const navigation = useNavigate();
 
@@ -45,11 +41,11 @@ const HomePage = () => {
     <div>
 
       <h1>Home Page</h1>
-      <button onClick={handleAdd}>Agregar</button>
 
       <nav>
         <h1>misFinanzas</h1>
         <p>{username}</p>
+        <p>${amount}</p>
           <button className="btn btn-danger rigth" onClick={handleLogout}>
             Cerrar Seccion
           </button>
