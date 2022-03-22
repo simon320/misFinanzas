@@ -39,7 +39,7 @@ const LoginPage = () => {
       return;
     }
 
-    dispatch(emailAndPasswordLogin(email, password))
+    dispatch(emailAndPasswordLogin(email, password));
   };
 
   // const [nameUser, setNameUser] = useState("");
@@ -50,16 +50,16 @@ const LoginPage = () => {
   // };
 
   return (
-    <div>
-      <h2 style={{ fontSize: "15px" }}>Login</h2>
-      <h1>mis Finanzas</h1>
-      <form onSubmit={handleEmailLogin}>
+    <div className="container">
+      <h1 className="title">mis Finanzas</h1>
+      <form className="form-container" onSubmit={handleEmailLogin}>
         <label>
           <input
             onChange={handleChange}
             value={email}
             name="email"
             type="text"
+            className="input input-email"
             placeholder="email"
           />
         </label>
@@ -69,18 +69,21 @@ const LoginPage = () => {
             value={password}
             name="password"
             type="password"
+            className="input"
             placeholder="password"
           />
         </label>
-        <button
-          type="submit"
-          className="btn btn-info m-2"
-        >
-          Enviar
+        <button type="submit" className="button">
+          Entrar
         </button>
-        <hr />
-        <GoogleButton onClick={handleGoogleLogin} />
-        <Link to="/auth/register">Registrate presionando aqui</Link>
+        <hr className="spliter-line" />
+        <GoogleButton className="btn-google" onClick={handleGoogleLogin} />
+        <div className="container-register">
+          <h2 className="register"> ¿No tenes cuenta? </h2>
+          <Link className="link-register" to="/auth/register">
+            Registrate presionando <span className="span-register">aquí</span>.          
+          </Link>
+        </div>
 
         {/* <label>
           <input

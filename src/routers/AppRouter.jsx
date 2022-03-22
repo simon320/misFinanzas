@@ -3,7 +3,9 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import HomePage from "../pages/HomePage";
 
 import { useDispatch } from "react-redux";
+
 import { firebase } from "../firebase/config-firebase";
+
 import { login } from "../redux/actions/auth";
 import AuthRouter from "./AuthRouter";
 import PrivateRouter from "./PrivateRouter";
@@ -13,6 +15,8 @@ import { loadDataRegister } from "../helpers/loadDataRegister";
 import { loadDataAcount } from "../helpers/loadDataAcount";
 import { readRegister } from "../redux/actions/dateRegister";
 import { readAcount } from "../redux/actions/acount";
+
+
 
 const AppRouter = () => {
   const dispatch = useDispatch()

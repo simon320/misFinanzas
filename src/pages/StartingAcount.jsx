@@ -11,10 +11,7 @@ const StartingAcount = () => {
   });
 
   const { amount } = moneyInAccount
-  const amountt = useSelector((state) => state.createAcount);
 
-  
-  console.log(amountt)
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
