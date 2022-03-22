@@ -26,10 +26,9 @@ const StartingAcount = () => {
   }
 
   return (
-    <div>
-      <h2 style={{ fontSize: "15px" }}>StartingAcount</h2>
-      <h1>¡Hola {username}!</h1>
-      <p>
+    <div className="container">
+      <h1 className="title">¡Hola {username}!</h1>
+      <p className="p-description">
         Para continuar, introduce el monto de dinero que tienes en este momento
         cuenta.(Luego podra agregar mas ingresos de dinero).
       </p>
@@ -40,17 +39,23 @@ const StartingAcount = () => {
             value={amount}
             name="amount"
             type="number"
+            className="input"
             placeholder="$0.00"
           />
         </label>
+          <Link to="/home">
           <button
             type="button"
-            className="btn btn-info m-2"
+            className="button"
             onClick={handleClick}
           >
             Continuar
           </button>
-          <Link to="/home">ir</Link>
+            
+          </Link>
+          {/* <Link to="/home">
+            
+          </Link> */}
       </form>
     </div>
   );

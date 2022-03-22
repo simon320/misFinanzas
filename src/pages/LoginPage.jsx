@@ -12,7 +12,7 @@ const LoginPage = () => {
   const [data, setData] = useState({
     email: "",
     password: "",
-  });
+  })
 
   const { email, password } = data;
 

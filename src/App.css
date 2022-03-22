@@ -1,3 +1,8 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
 .table {
   margin: 0 auto 20px;
 }
@@ -135,8 +140,8 @@ label {
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 393px;
-  height: 850px;
+  width: 100%;
+  height: 950px;
   background-image: linear-gradient(90deg, rgb(39, 39, 39),rgb(24, 23, 23), rgb(18, 18, 19), rgb(24, 23, 23), rgb(39, 39, 39));
 }
 
@@ -214,4 +219,24 @@ margin: 20px auto 30px;
 
 .span-register {
   color: aliceblue;
+}
+
+
+/*-------------------- STARTING PAGE -------------------- */
+
+.title {
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 4.2em;
+  font-weight: 100;
+  margin: 10px 10px 50px ;
+  color: aliceblue;
+}
+
+.p-description {
+  margin: 10px;
+  color: aliceblue;
+  text-decoration: none;
+  font-family: monospace;
+  font-weight: 400;
+  font-size: 1.4em;
 }
