@@ -1,15 +1,12 @@
 import { types } from "../actions/types";
 
-const initialState = {
-  data: []
-}
 
-const acountReducer = (state = initialState, action) => {
+const acountReducer = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_ACOUNT: {
       return {
         ...state,
-        data: [...state.data, action.payload]
+        amount: action.payload
       }
     }
 

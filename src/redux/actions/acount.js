@@ -1,13 +1,13 @@
 import { db } from "../../firebase/config-firebase";
-import { doc, setDoc, updateDoc } from "firebase/firestore";
+import { doc, setDoc,  } from "firebase/firestore";
 import { types } from "./types";
 
-export const createAcount = (amount) => {
+export const createAcount = () => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
 
     const acount = {
-      amount,
+      amount: 0,
       amountPerDay: 0,
       saved: 0,
       valuta: [],
@@ -18,30 +18,30 @@ export const createAcount = (amount) => {
       .add(acount);
     const id = reference.id;
     const newAcount = {
-      ...acount,
-      id,
+      acount
     };
 
     dispatch(addAcount(newAcount));
   };
-};
+}
 
-export const editAcount = (state, amount) => {
+export const editAcount = (amount) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
-
+    const { id } = getState().acountReducer;
+console.log(id)
     const acount = {
-      ...state,
       amount
     };
 
-    const amountRef = doc(db, "acount-finances", "acount");
+    let amountRef = db.collection(`${uid}/acount-finances/acount`)
 
-    await updateDoc(amountRef, {
-      "amount": "1250000"
+    amountRef.doc(id).update({
+      amount: {
+        amount: "20000"
+      }
     })
 
-    // dispatch(addAcount(newAcount));
   };
 };
 

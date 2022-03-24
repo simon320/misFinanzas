@@ -5,25 +5,25 @@ import { createAcount } from "../redux/actions/acount";
 
 const StartingAcount = () => {
   const username = useSelector((state) => state.authReducer.displayName);
-  
-  const [ moneyInAccount, setMoneyInAccount ] = useState({
-    amount: 0
+
+  const [moneyInAccount, setMoneyInAccount] = useState({
+    amount: 0,
   });
 
-  const { amount } = moneyInAccount
+  const { amount } = moneyInAccount;
 
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
     setMoneyInAccount({
       ...moneyInAccount,
-      [e.target.name]: e.target.value
-    })
-  }
+      [e.target.name]: e.target.value,
+    });
+  };
 
   const handleClick = () => {
-    dispatch(createAcount(moneyInAccount))
-  }
+    console.log("Holis")
+  };
 
   return (
     <div className="container">
@@ -43,17 +43,13 @@ const StartingAcount = () => {
             placeholder="$0.00"
           />
         </label>
-          <Link to="/home">
-          <button
-            type="button"
-            className="button"
-            onClick={handleClick}
-          >
+        <Link to="/home">
+          <button type="button" className="button" onClick={handleClick}>
             Continuar
           </button>
-            
-          </Link>
-          {/* <Link to="/home">
+        </Link>
+        <Link to="/home">hoLAAAAA</Link>
+        {/* <Link to="/home">
             
           </Link> */}
       </form>

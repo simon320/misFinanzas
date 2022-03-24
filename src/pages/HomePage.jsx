@@ -21,11 +21,11 @@ import { editAcount } from "../redux/actions/acount";
 
 const HomePage = () => {
   const username = useSelector((state) => state.authReducer.displayName);
-  const amount = useSelector((state) => state.acountReducer.data[0].amount.amount);
-  const state = useSelector((state) => state.acountReducer.data);
+  // const amount = useSelector((state) => state.acountReducer.data[0].amount.amount);
+  // const state = useSelector((state) => state.acountReducer.data);
   const dispatch = useDispatch();
 
-console.log(state)
+
   // const navigation = useNavigate();
 
   // const confirmDelete = (callback) => {
@@ -43,8 +43,8 @@ console.log(state)
   };
 
   const handleL = () => {
-    dispatch(editAcount(state, "250000"))
-  };
+    dispatch(editAcount("250000"))
+  }
 
 
   return (
@@ -55,7 +55,7 @@ console.log(state)
       <nav>
         <h1>misFinanzas</h1>
         <p>{username}</p>
-        <p>${amount}</p>
+        {/* <p>${amount}</p> */}
           <button className="btn btn-danger rigth" onClick={handleLogout}>
             Cerrar Seccion
           </button>
