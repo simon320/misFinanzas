@@ -1,6 +1,5 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { FinanceProvider } from "./context/financeContext";
 import LoginPage from "./pages/LoginPage";
 import StartingAcount from "./pages/StartingAcount";
 import HomePage from "./pages/HomePage";
@@ -11,7 +10,7 @@ import AppRouter from "./routers/AppRouter";
 
 function App() {
   return (
-    // <FinanceProvider>
+
     //   <BrowserRouter>
     //     <Routes>
     //       <Route path="/" element={<LoginPage />} />
@@ -24,7 +23,7 @@ function App() {
     //       </Route>
     //     </Routes>
     //   </BrowserRouter>
-    // </FinanceProvider>
+
 
     <AppRouter />
 

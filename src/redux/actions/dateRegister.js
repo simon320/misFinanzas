@@ -2,44 +2,22 @@ import { db } from "../../firebase/config-firebase";
 import { types } from "./types";
 
 
-export const recordIncome = (date, description, income) => {
+export const recordRegister = (date, typeRegister, description, amountRegister) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
 
     const currentDate = {
       date,
-      character: "Ingreso",
+      character: typeRegister,
       description,
-      incomes: income,
+      typeRegister: amountRegister,
     };
 
-    const reference = await db.collection(`${uid}/date-finances/finance`).add(currentDate);
+    const reference = await db.collection(`users/${uid}/register-finances`).add(currentDate);
     const id = reference.id;
     const newRegister = {
-      ...currentDate,
       id,
-    }
-
-    dispatch(addRegister(newRegister))
-  };
-};
-
-export const recordExpense = (date, description, expense) => {
-  return async (dispatch, getState) => {
-    const { uid } = getState().authReducer;
-
-    const currentDate = {
-      date,
-      character: "Gasto",
-      description,
-      expense: expense,
-    };
-
-    const reference = await db.collection(`${uid}/date-finances/finance`).add(currentDate);
-    const id = reference.id;
-    const newRegister = {
-      ...currentDate,
-      id,
+      ...currentDate
     }
 
     dispatch(addRegister(newRegister))
@@ -66,7 +44,7 @@ export const deleteRegisterDB = (id) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
     
-    await db.doc(`${uid}/date-finances/finance/${id}`).delete();
+    await db.doc(`users/${uid}/register-finances/${id}`).delete();
     
     dispatch(deleteRegister(id))
   };
@@ -95,7 +73,7 @@ export const createRegister = (date) => {
       expenses: []
     };
 
-    const reference = await db.collection(`${uid}/date-finances/finance`).add(currentDate);
+    const reference = await db.collection(`users/${uid}/register-finances`).add(currentDate);
     console.log(reference)
   };
 };

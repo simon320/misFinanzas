@@ -16,7 +16,7 @@ const Row = ({ date, currentDate }) => {
 
   // TOTAL INCOME
   let income = 0
-  let dayIncomesTrue = dataArray.map((dayIncome) => dayIncome.character !== "Gasto" && dayIncome.incomes)//Creo array con los montos de los ingresos y valor "false" en lugar de gastos.
+  let dayIncomesTrue = dataArray.map((dayIncome) => dayIncome.character !== "Expense" && dayIncome.typeRegister)//Creo array con los montos de los ingresos y valor "false" en lugar de gastos.
   let dayIncomeArray = dayIncomesTrue.filter((amountIncome) => amountIncome !== false)//Array de monto de ingresos.
   for (let i = 0; i < dayIncomeArray.length; i++) {
     income += parseInt(dayIncomeArray[i]);
@@ -25,7 +25,7 @@ const Row = ({ date, currentDate }) => {
   
   // TOTAL EXPENSE
   let expense = 0
-  let dayExpensesTrue = dataArray.map((dayExpense) => dayExpense.character !== "Ingreso" && dayExpense.expense)//Creo array con los montos de los gastos y valor "false" en lugar de ingresos.
+  let dayExpensesTrue = dataArray.map((dayExpense) => dayExpense.character !== "Income" && dayExpense.typeRegister)//Creo array con los montos de los gastos y valor "false" en lugar de ingresos.
   let dayExpenseArray = dayExpensesTrue.filter((amountExpense) => amountExpense !== false)//Array de monto de gastos.
   for (let i = 0; i < dayExpenseArray.length; i++) {
     expense += parseInt(dayExpenseArray[i]);
@@ -41,11 +41,11 @@ const Row = ({ date, currentDate }) => {
         {currentDate.map((item) => {
           return (
             item.date.includes(date) &&
-            (item.character == "Ingreso" ? (
+            (item.character == "Income" ? (
               <tr className="incomeRow" key={item.id}>
                 <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
-                <td className="text-center">${item.incomes}</td>
+                <td className="text-center">${item.typeRegister}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}
@@ -59,7 +59,7 @@ const Row = ({ date, currentDate }) => {
               <tr className="expenseRow" key={item.id}>
                 <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
-                <td className="text-center">-${item.expense}</td>
+                <td className="text-center">-${item.typeRegister}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}

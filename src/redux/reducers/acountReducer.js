@@ -11,6 +11,7 @@ const acountReducer = (state = {}, action) => {
 
     case types.READ_ACOUNT: {
       return {
+        ...state,
         user: action.payload
       }
     }

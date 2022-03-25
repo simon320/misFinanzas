@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { addRegister, recordIncome } from "../redux/actions/dateRegister";
+import { addRegister, recordRegister } from "../redux/actions/dateRegister";
 
 
 const RowIncomeAdd = ({ date }) => {
@@ -23,7 +23,7 @@ const RowIncomeAdd = ({ date }) => {
   };
 
   const handleAdd = () => {
-    dispatch(recordIncome(date, description, income));
+    dispatch(recordRegister(date, "Income", description, income));
     setData({ character: "", description: "", income: 0 });
   };
 

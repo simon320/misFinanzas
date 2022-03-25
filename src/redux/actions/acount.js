@@ -13,7 +13,7 @@ export const createAcount = () => {
     };
 
     const reference = await db
-      .collection(`${uid}/acount-finances/acount`)
+      .collection(`users/${uid}/acount`)
       .add(acount);
     const id = reference.id;
     const newAcount = {
@@ -35,12 +35,11 @@ export const editAcount = (amount) => {
     //   amount
     // };
 
-    let amountRef = db.collection(`${uid}/acount-finances/acount`)
+    let amountRef = db.collection(`users/${uid}/acount`)
 
     amountRef.doc(user.id).update({
         amount: "123456"
     })
-    console.log(user)
   };
 };
 
