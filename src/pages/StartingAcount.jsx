@@ -22,7 +22,12 @@ const StartingAcount = () => {
   };
 
   const handleClick = () => {
-    console.log("Holis")
+    console.log("Holis");
+  };
+
+  const hClick = () => {
+    dispatch(createAcount());
+    console.log("La cree");
   };
 
   return (
@@ -47,11 +52,12 @@ const StartingAcount = () => {
           <button type="button" className="button" onClick={handleClick}>
             Continuar
           </button>
+          <button className="button" onClick={hClick}>
+            Crear
+          </button>
         </Link>
-        <Link to="/home">hoLAAAAA</Link>
-        {/* <Link to="/home">
-            
-          </Link> */}
+        <Link to="/home">IR</Link>
+
       </form>
     </div>
   );

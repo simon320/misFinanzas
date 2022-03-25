@@ -5,15 +5,13 @@ const acountReducer = (state = {}, action) => {
   switch (action.type) {
     case types.ADD_ACOUNT: {
       return {
-        ...state,
-        amount: action.payload
+        user: action.payload
       }
     }
 
     case types.READ_ACOUNT: {
       return {
-        ...state,
-        data: action.payload
+        user: action.payload
       }
     }
 

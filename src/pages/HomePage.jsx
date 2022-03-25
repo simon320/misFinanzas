@@ -14,14 +14,13 @@ import { Switch } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ForeignExchange from "../components/ForeignExchange";
 import { useRouteMatch } from "react-router-dom";
-// import {second} from 'first'
 import { editAcount } from "../redux/actions/acount";
 
 
 
 const HomePage = () => {
   const username = useSelector((state) => state.authReducer.displayName);
-  // const amount = useSelector((state) => state.acountReducer.data[0].amount.amount);
+  // const amount = useSelector((state) => state.acountReducer.user.amount);
   // const state = useSelector((state) => state.acountReducer.data);
   const dispatch = useDispatch();
 
@@ -43,7 +42,7 @@ const HomePage = () => {
   };
 
   const handleL = () => {
-    dispatch(editAcount("250000"))
+    dispatch(editAcount())
   }
 
 

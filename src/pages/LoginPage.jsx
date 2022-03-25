@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 // import { loginUser } from "../redux/actions/actions";
 import { Link } from "react-router-dom";
 import { emailAndPasswordLogin, googleLogin } from "../redux/actions/auth";
-import { createAcount } from "../redux/actions/acount";
 
 
 const LoginPage = () => {
@@ -29,7 +28,6 @@ const LoginPage = () => {
 
   const handleGoogleLogin = () => {
     dispatch(googleLogin());
-    dispatch(createAcount());
   };
 
   const handleEmailLogin = (e) => {
@@ -43,7 +41,6 @@ const LoginPage = () => {
     }
 
     dispatch(emailAndPasswordLogin(email, password));
-    dispatch(createAcount());
   };
   
 
