@@ -1,15 +1,19 @@
-import { Redirect, Switch, Route } from "react-router-dom";
+import { Redirect, Routes, Route } from "react-router-dom";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
 
 const AuthRouter = () => {
   return (
-    <Switch>
-      <Route exact path="/auth/login" component={LoginPage} />
-      <Route exact path="/auth/register" component={RegisterPage} />
+    <Routes>
 
-      <Redirect to="/auth/login" />
-    </Switch>
+      <Route path="login" element={<LoginPage/>} />
+      <Route path="register" element={<RegisterPage />} />
+    </Routes>
+    // <Routes>
+    //   <Route path="login" element={<LoginPage/>} />
+
+    //   {/* <Redirect to="/auth/login" /> */}
+    // </Routes>
   );
 };
 

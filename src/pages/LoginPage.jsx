@@ -10,6 +10,8 @@ import { emailAndPasswordLogin, googleLogin } from "../redux/actions/auth";
 
 
 const LoginPage = () => {
+  const navigation = useNavigate()
+
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -28,6 +30,8 @@ const LoginPage = () => {
 
   const handleGoogleLogin = () => {
     dispatch(googleLogin());
+    navigation("/home")
+
   };
 
   const handleEmailLogin = (e) => {
@@ -41,6 +45,7 @@ const LoginPage = () => {
     }
 
     dispatch(emailAndPasswordLogin(email, password));
+    navigation("/home")
   };
   
 

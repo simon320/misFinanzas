@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
 import { useCalendar } from "../hooks/useCalendar";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -10,21 +10,22 @@ import { cleanLogout, createRegister } from "../redux/actions/dateRegister";
 import { logout } from "../redux/actions/auth";
 import Calendar from "../components/Calendar";
 import { Redirect } from "react-router-dom";
-import { Switch } from "react-router-dom";
+import { Routes } from "react-router-dom";
 import { Route } from "react-router-dom";
 import ForeignExchange from "../components/ForeignExchange";
 import { useRouteMatch } from "react-router-dom";
 import { editAcount } from "../redux/actions/acount";
+import { NavigationRoute } from "workbox-routing";
 
 
 
 const HomePage = () => {
   const username = useSelector((state) => state.authReducer.displayName);
-  const amount = useSelector((state) => state.acountReducer.user.amount);
+  // const amount = useSelector((state) => state.acountReducer.user.amount);
   // const state = useSelector((state) => state.acountReducer.data);
   const dispatch = useDispatch();
-console.log(amount)
-  // const navigation = useNavigate();
+// console.log(amount)
+  const navigation = useNavigate();
 
   // const confirmDelete = (callback) => {
   //   const deleteUser = window.confirm(
@@ -33,11 +34,12 @@ console.log(amount)
   //   deleteUser && callback();
   // };
 
-  let {path, url} = useRouteMatch();
+    // let {path, url} = useRouteMatch();
 
   const handleLogout = () => {
     dispatch(cleanLogout())
     dispatch(logout());
+    navigation("/auth/login")
   };
 
   const handleL = () => {
@@ -53,7 +55,7 @@ console.log(amount)
         <h1>misFinanzas</h1>
         <p>{username}</p>
         <p>
-          ${amount}
+          {/* ${amount} */}
         </p>
           <button className="btn btn-danger rigth" onClick={handleLogout}>
             Cerrar Seccion
@@ -63,17 +65,18 @@ console.log(amount)
           </button>
       </nav>
 
-      <Link to={`${url}/calendario`}>Calendario</Link>{" "}
-      <Link to={`${url}/divizas`}>Divizas</Link> 
+      <Link to="calendario">Calendario</Link>{" "}
+      <Link to="divizas">Divizas</Link> 
       <br />
 
       <section>
-        <Switch>
-          <Route path={`${path}/divizas`} component={ForeignExchange} />
-          <Route path={`${path}/calendario`} component={Calendar} />
+        {/* <Routes>
+          <Route path="divizas" element={<ForeignExchange/>} />
+          <Route path="calendario" element={<Calendar/>} />
 
-          <Redirect to={`${url}/calendario`}/>
-        </Switch>
+        <Navigate to="calendario"/>
+        </Routes> */}
+        <Outlet/> 
       </section>
 
     </div>

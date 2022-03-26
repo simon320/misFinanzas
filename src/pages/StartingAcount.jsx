@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { createAcount } from "../redux/actions/acount";
 
 const StartingAcount = () => {
   const username = useSelector((state) => state.authReducer.displayName);
+
+  const navigation = useNavigate()
 
   const [moneyInAccount, setMoneyInAccount] = useState({
     amount: 0,
@@ -29,6 +31,10 @@ const StartingAcount = () => {
     dispatch(createAcount());
     console.log("La cree");
   };
+
+  const h = () => {
+    navigation("home")
+  }
 
   return (
     <div className="container">
@@ -56,8 +62,9 @@ const StartingAcount = () => {
             Crear
           </button>
         </Link>
-        <Link to="/home">IR</Link>
-
+        <button onClick={h}>
+          IR
+        </button>
       </form>
     </div>
   );
