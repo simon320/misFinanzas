@@ -39,7 +39,7 @@ const HomePage = () => {
   const handleLogout = () => {
     dispatch(cleanLogout())
     dispatch(logout());
-    navigation("/auth/login")
+    navigation("/auth")
   };
 
   const handleL = () => {
