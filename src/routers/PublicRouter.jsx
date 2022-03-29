@@ -1,12 +1,15 @@
 import React from 'react'
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 
-const PublicRouter = ({ log, children }) => {
+const PublicRouter = ({ log }) => {
   
-    return log ? <Navigate to="/" /> : children;
-    // <Route {...resto} component={(props)=>
-    //     log ? <Route to="/" /> : <Component {...props} />
-    // } />
+    return log ? 
+      <Navigate to="/" /> 
+      : 
+      <>
+        <Outlet />
+      </>
+
   };
 
 export default PublicRouter

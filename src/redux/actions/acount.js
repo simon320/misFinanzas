@@ -1,12 +1,12 @@
 import { db } from "../../firebase/config-firebase";
 import { types } from "./types";
 
-export const createAcount = () => {
+export const createAcount = (amount) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
 
     const acount = {
-      amount: 0,
+      amount: amount,
       amountPerDay: 0,
       saved: 0,
       valuta: [],

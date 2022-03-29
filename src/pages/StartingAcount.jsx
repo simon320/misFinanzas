@@ -6,7 +6,7 @@ import { createAcount } from "../redux/actions/acount";
 const StartingAcount = () => {
   const username = useSelector((state) => state.authReducer.displayName);
 
-  const navigation = useNavigate()
+  // const navigation = useNavigate()
 
   const [moneyInAccount, setMoneyInAccount] = useState({
     amount: 0,
@@ -24,17 +24,8 @@ const StartingAcount = () => {
   };
 
   const handleClick = () => {
-    console.log("Holis");
+    dispatch(createAcount(amount));
   };
-
-  const hClick = () => {
-    dispatch(createAcount());
-    console.log("La cree");
-  };
-
-  const h = () => {
-    navigation("home")
-  }
 
   return (
     <div className="container">
@@ -55,16 +46,10 @@ const StartingAcount = () => {
           />
         </label>
         <Link to="/home">
-          <button type="button" className="button" onClick={handleClick}>
-            Continuar
-          </button>
-          <button className="button" onClick={hClick}>
+          <button className="button" onClick={handleClick}>
             Crear
           </button>
         </Link>
-        <button onClick={h}>
-          IR
-        </button>
       </form>
     </div>
   );
