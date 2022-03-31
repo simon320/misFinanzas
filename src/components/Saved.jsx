@@ -29,7 +29,7 @@ const Saved = ({setMoneyAvailable}) => {
 
   const [viewOption, setViewOption] = useState("");
   const [moneyForAccount, setMoneyForAccount] = useState("");
-  const [moneyForBadge, setMoneyForBadge] = useState("");
+  const [moneyForBadge, setMoneyForBadge] = useState("")
 
   const handleTransfer = async (moneyTransfer, confirmTransfer) => {
       saving >= moneyTransfer
@@ -44,7 +44,7 @@ const Saved = ({setMoneyAvailable}) => {
     dispatch(editSaving(parseInt(saving) - parseInt(moneyForAccount)));
     setTimeout(() => {
       setViewOptionSaved(false);
-    }, 150);
+    }, 250);
   };
 
   const handleTransferBadge = () => {

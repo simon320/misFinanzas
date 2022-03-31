@@ -10,7 +10,7 @@ const composeEnhancers = (typeof window !== 'undefined' && window.__REDUX_DEVTOO
 const store = createStore(rootReducers, composeEnhancers(applyMiddleware(thunk)));
 export default store;
 
-console.log("Estado inicial:", store.getState());
-store.subscribe(() => {
-  console.log("Cambio de Estado:", store.getState());
-});
+// console.log("Estado inicial:", store.getState());
+// store.subscribe(() => {
+//   console.log("Cambio de Estado:", store.getState());
+// });

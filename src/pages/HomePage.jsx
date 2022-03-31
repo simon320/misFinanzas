@@ -96,7 +96,7 @@ const HomePage = () => {
         </label>
         {viewOptionAvailable && <Available setMoneyAvailable={setMoneyAvailable} />}
         {viewOptionSaved && (
-          <Saved setViewOptionSaved={setViewOptionSaved} />
+          <Saved setMoneyAvailable={setMoneyAvailable} />
         )}{" "}
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}
