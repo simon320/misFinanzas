@@ -1,16 +1,15 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FinanceContext } from "../context/financeContext";
-
-//redux
 import { useSelector, useDispatch } from "react-redux";
-import { editAmount, editSaving } from "../redux/actions/actions";
+import { editAcount, editSaving, readAcount } from "../redux/actions/acount";
+import { loadDataAcount } from "../helpers/loadDataAcount";
 
-const Available = () => {
-  const amount = useSelector((state) => state.currentUser.amount);
-  const saving = useSelector((state) => state.currentUser.saving);
+const Available = ({setMoneyAvailable}) => {
+  const userId = useSelector((state) => state.authReducer.uid);
+  const amount = useSelector((state) => state.acountReducer.user.amount);
+  const saving = useSelector((state) => state.acountReducer.user.saved);
+
   const dispatch = useDispatch();
-
-
 
   const {
     viewOptionAvailable,
@@ -35,22 +34,26 @@ const Available = () => {
   const saved = (moneyForSaved) => {
     const currentAmount = parseInt(amount) - parseInt(moneyForSaved)
     const currentSave = saving ? saving + parseInt(moneyForSaved) : parseInt(moneyForSaved);
-    dispatch(editAmount(currentAmount));
+    dispatch(editAcount(currentAmount));
     dispatch(editSaving(currentSave));
     setTimeout(() => {
       setViewOptionAvailable(false);
     }, 250);
   };
 
-  const handleSaved = (amount, money, save) => {
+  const handleSaved = async (amount, money, save) => {
     parseInt(amount) >= parseInt(money)
-      ? save(parseInt(money))
-      : window.alert("No tienes esa cantidad de dinero en la cuenta");
+    ? save(parseInt(money))
+    : window.alert("No tienes esa cantidad de dinero en la cuenta");
+    const dataAcount = await loadDataAcount(userId);
+    dispatch(readAcount(dataAcount));
   };
 
-  // useEffect(() => {
-  //   setAmountPerDay(parseInt(amount) / daysForDistribute);
-  // }, [amount]);
+  useEffect(() => {
+    console.log(amount)
+    setMoneyAvailable(amount);
+  }, [amount]);
+
 
   const option = () => {
     switch (viewOption) {
@@ -84,7 +87,7 @@ const Available = () => {
               />
               <button
                 className="btn btn-info m-2"
-                onClick={() => handleSaved(amount, saved, moneyForSaved)}
+                onClick={() => handleSaved(amount, moneyForSaved, saved)}
               >
                 Ahorrar
               </button>

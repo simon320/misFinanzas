@@ -8,13 +8,6 @@ import { loadDataAcount } from "../helpers/loadDataAcount";
 import { readAcount } from "../redux/actions/acount";
 
 
-
-// const PrivateRouter = ({ log, children }) => {
-
-//   return log ? children : <Navigate to="/auth/login" />;
-
-// };
-
 const PrivateRouter = ({ log }) => {
   const [logAcount, setLogAcount] = useState(false);
   const dispatch = useDispatch();

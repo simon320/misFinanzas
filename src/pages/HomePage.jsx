@@ -1,30 +1,40 @@
 import React, { useContext, useEffect, useState } from "react";
-import { Link, Navigate, Outlet, useNavigate } from "react-router-dom";
-import { useCalendar } from "../hooks/useCalendar";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { FinanceContext } from "../context/financeContext";
 
-import { doc, updateDoc } from "firebase/firestore";
-import { db } from "../firebase/config-firebase";
-
-import { cleanLogout, createRegister } from "../redux/actions/dateRegister";
+import { cleanLogout } from "../redux/actions/dateRegister";
 import { logout } from "../redux/actions/auth";
 import Calendar from "../components/Calendar";
-import { Redirect } from "react-router-dom";
-import { Routes } from "react-router-dom";
-import { Route } from "react-router-dom";
-import ForeignExchange from "../components/ForeignExchange";
-import { useRouteMatch } from "react-router-dom";
-import { editAcount } from "../redux/actions/acount";
-import { NavigationRoute } from "workbox-routing";
-
-
+import { editAcount, readAcount } from "../redux/actions/acount";
+import { loadDataAcount } from "../helpers/loadDataAcount";
+import Available from "../components/Available";
+import Saved from "../components/Saved";
 
 const HomePage = () => {
-  const username = useSelector((state) => state.authReducer.displayName);
-  // const amount = useSelector((state) => state.acountReducer.user.amount);
-  // const state = useSelector((state) => state.acountReducer.data);
+  const {
+    viewOptionAvailable,
+    setViewOptionAvailable,
+    viewOptionSaved,
+    setViewOptionSaved,
+    setAmountPerDay,
+    daysForDistribute,
+    setDaysForDistribute,
+  } = useContext(FinanceContext);
+
+  const userName = useSelector((state) => state.authReducer.displayName);
+  const userId = useSelector((state) => state.authReducer.uid);
+  const acount = useSelector((state) => state.acountReducer.user);
+  const amount = useSelector((state) => state.acountReducer.user.amount);
+  const saving = useSelector((state) => state.acountReducer.user.saved);
+
+  const [moneyAvailable, setMoneyAvailable] = useState(amount);
   const dispatch = useDispatch();
-// console.log(amount)
+
+  console.log(amount);
+  console.log(userId);
+  console.log(acount);
+
   const navigation = useNavigate();
 
   // const confirmDelete = (callback) => {
@@ -34,51 +44,75 @@ const HomePage = () => {
   //   deleteUser && callback();
   // };
 
-    // let {path, url} = useRouteMatch();
-
   const handleLogout = () => {
-    dispatch(cleanLogout())
+    dispatch(cleanLogout());
     dispatch(logout());
-    navigation("/auth")
+    navigation("/auth");
   };
 
-  const handleL = () => {
-    dispatch(editAcount())
-  }
+  const handleL = async () => {
+    dispatch(editAcount(115000));
+    const dataAcount = await loadDataAcount(userId);
+    dispatch(readAcount(dataAcount));
+  };
+
+  //////////////////////////////
+
+  // const [viewOptionAvailable, setViewOptionAvailable] = useState(false);
+  // const [viewOptionSaved, setViewOptionSaved] = useState(false);
+
+  const handleClickAvailable = () => {
+    setViewOptionAvailable(!viewOptionAvailable);
+    setViewOptionSaved(false);
+  };
+
+  const handleClickSaved = () => {
+    setViewOptionSaved(!viewOptionSaved);
+    setViewOptionAvailable(false);
+  };
+
+  useEffect(() => {
+    setMoneyAvailable(amount);
+  }, [acount]);
+
+
 
   return (
     <div>
-
-      <h1>Home Page</h1>
-
       <nav>
         <h1>misFinanzas</h1>
-        <p>{username}</p>
-        <p>
-          {/* ${amount} */}
-        </p>
-          <button className="btn btn-danger rigth" onClick={handleLogout}>
-            Cerrar Seccion
-          </button>
-          <button className="btn btn-danger rigth" onClick={handleL}>
-            Cerr
-          </button>
+        <p>{userName}</p>
+        <label>
+          Cuenta
+          <button className="btn btn-info m-2" onClick={handleClickAvailable}>
+            ${moneyAvailable}
+          </button>{" "}
+        </label>
+        <label>
+          Ahorrado
+          <button className="btn btn-info m-2" onClick={handleClickSaved}>
+            ${saving}
+          </button>{" "}
+        </label>
+        {viewOptionAvailable && <Available setMoneyAvailable={setMoneyAvailable} />}
+        {viewOptionSaved && (
+          <Saved setViewOptionSaved={setViewOptionSaved} />
+        )}{" "}
+        <br />
+        <Link to={"Calendar"}>Home</Link>{" "}
+        <Link to={"ForeignExchange"}>Divizas</Link> <br />
+        <button className="btn btn-danger rigth" onClick={handleL}>
+          EDITAR
+        </button>
+        {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
       </nav>
-
-      <Link to="calendario">Calendario</Link>{" "}
-      <Link to="divizas">Divizas</Link> 
+      <button className="btn btn-danger rigth" onClick={handleLogout}>
+        Cerrar Seccion
+      </button>
       <br />
-
       <section>
-        {/* <Routes>
-          <Route path="divizas" element={<ForeignExchange/>} />
-          <Route path="calendario" element={<Calendar/>} />
-
-        <Navigate to="calendario"/>
-        </Routes> */}
-        <Outlet/> 
+        <Calendar />
       </section>
-
     </div>
   );
 };

@@ -1,4 +1,5 @@
 import { db } from "../../firebase/config-firebase";
+import { loadDataAcount } from "../../helpers/loadDataAcount";
 import { types } from "./types";
 
 export const createAcount = (amount) => {
@@ -30,15 +31,10 @@ export const editAcount = (amount) => {
     const { uid } = getState().authReducer;
     const { user } = getState().acountReducer;
     
-    console.log(user.id)
-    // const acount = {
-    //   amount
-    // };
-
     let amountRef = db.collection(`users/${uid}/acount`)
 
     amountRef.doc(user.id).update({
-        amount: "123456"
+        amount: amount
     })
   };
 };
@@ -54,5 +50,18 @@ export const readAcount = (user) => {
   return {
     type: types.READ_ACOUNT,
     payload: user,
+  };
+};
+
+export const editSaving = (saved) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().authReducer;
+    const { user } = getState().acountReducer;
+    
+    let savedRef = db.collection(`users/${uid}/acount`)
+
+    savedRef.doc(user.id).update({
+        saved: saved
+    })
   };
 };

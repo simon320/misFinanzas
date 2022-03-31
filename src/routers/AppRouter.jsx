@@ -43,7 +43,7 @@ const AppRouter = () => {
 
         const dataAcount = await loadDataAcount(user.uid);
           dispatch(readAcount(dataAcount));
-
+        
         setLog(true);
 
       } else {
@@ -60,17 +60,9 @@ const AppRouter = () => {
           <Route path="login" element={<LoginPage />} />
           <Route path="register" element={<RegisterPage />} />
         </Route>
-{/* 
-        <Route path="/*" log={log} element={
-            <PrivateRouter log={log} >
-              {logAcount ?
-                <HomePage /> : 
-                <StartingAcount />}
-            </PrivateRouter>
-          }
-        ></Route> */}
 
         <Route path="/*" log={log} element={<PrivateRouter log={log} />}/>
+
       </Routes>
     </Router>
   );

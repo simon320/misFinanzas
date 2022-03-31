@@ -7,6 +7,8 @@ import Calendar from "./components/Calendar";
 import ForeignExchange from "./components/ForeignExchange";
 import Date from "./components/Date";
 import AppRouter from "./routers/AppRouter";
+import { FinanceProvider } from "./context/financeContext";
+
 
 function App() {
   return (
@@ -24,8 +26,9 @@ function App() {
     //     </Routes>
     //   </BrowserRouter>
 
-
-    <AppRouter />
+<FinanceProvider>
+  <AppRouter />
+</FinanceProvider>
 
   );
 }

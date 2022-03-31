@@ -1,13 +1,14 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FinanceContext } from "../context/financeContext";
-
-//redux
 import { useSelector, useDispatch } from "react-redux";
-import { editAmount, editSaving } from "../redux/actions/actions";
+import { loadDataAcount } from "../helpers/loadDataAcount";
+import { editAcount, editSaving, readAcount } from "../redux/actions/acount";
 
-const Saved = () => {
-  const amount = useSelector((state) => state.currentUser.amount);
-  const saving = useSelector((state) => state.currentUser.saving);
+
+const Saved = ({setMoneyAvailable}) => {
+  const userId = useSelector((state) => state.authReducer.uid);
+  const amount = useSelector((state) => state.acountReducer.user.amount);
+  const saving = useSelector((state) => state.acountReducer.user.saved);
   const dispatch = useDispatch();
 
   const {
@@ -30,14 +31,16 @@ const Saved = () => {
   const [moneyForAccount, setMoneyForAccount] = useState("");
   const [moneyForBadge, setMoneyForBadge] = useState("");
 
-  const handleTransfer = (moneyTransfer, confirmTransfer) => {
-    return (savedMoney >= moneyTransfer
-      ? confirmTransfer()
-      : window.alert("No tienes esa cantidad de dinero ahorrado")
-  )}
+  const handleTransfer = async (moneyTransfer, confirmTransfer) => {
+      saving >= moneyTransfer
+        ? confirmTransfer()
+        : window.alert("No tienes esa cantidad de dinero ahorrado")
+      const dataAcount = await loadDataAcount(userId);
+      dispatch(readAcount(dataAcount));
+  }
 
   const handleTransferAccount = () => {
-    dispatch(editAmount(parseInt(amount) + parseInt(moneyForAccount)));
+    dispatch(editAcount(parseInt(amount) + parseInt(moneyForAccount)));
     dispatch(editSaving(parseInt(saving) - parseInt(moneyForAccount)));
     setTimeout(() => {
       setViewOptionSaved(false);
@@ -45,16 +48,18 @@ const Saved = () => {
   };
 
   const handleTransferBadge = () => {
-    dispatch(editAmount(parseInt(savedMoney - parseInt(moneyForBadge))));
-    dispatch(editAmount(parseInt(moneyInBadge) + parseInt(moneyForBadge)));
+    // dispatch(editAmount(parseInt(savedMoney - parseInt(moneyForBadge))));
+    // dispatch(editAmount(parseInt(moneyInBadge) + parseInt(moneyForBadge)));
     setTimeout(() => {
       setViewOptionSaved(false);
     }, 250);
   };
 
   useEffect(() => {
-    setAmountPerDay(parseInt(moneyInAccount) / daysForDistribute);
-  }, [moneyInAccount]);
+    console.log(amount)
+    setMoneyAvailable(amount);
+  }, [amount]);
+
 console.log(parseInt(savedMoney))
   const option = () => {
     switch (viewOption) {

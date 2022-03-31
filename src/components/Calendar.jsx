@@ -19,11 +19,7 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
-  // let { dataCalendar } = useContext(FinanceContext);
-
   const [viewDate, setViewDate] = useState("");
-
-  // dataCalendar = calendarRows;
 
   const handleClick = (e) => {
     setViewDate(e.date);

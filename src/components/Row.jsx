@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { deleteRegisterDB } from "../redux/actions/dateRegister";
 
-const Row = ({ date, currentDate }) => {
+const Row = ({ currentDate, date }) => {
 
   const dispatch = useDispatch()
 
