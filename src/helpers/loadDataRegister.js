@@ -6,7 +6,6 @@ export const loadDataRegister = async (uid) => {
 
   response.forEach((register) => {
     const registerData = register.data();
-    console.log(data);
     data.push({
       id: register.id,
       ...registerData,

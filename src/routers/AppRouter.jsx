@@ -30,8 +30,8 @@ const AppRouter = () => {
   const [log, setLog] = useState(false);
   // const [logAcount, setLogAcount] = useState(false);
 
-  const acountUser = useSelector((state) => state.acountReducer.user.amount);
-  console.log(acountUser)
+  // const acountUser = useSelector((state) => state.acountReducer.user.amount);
+  // console.log(acountUser)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
