@@ -100,7 +100,7 @@ const Saved = ({confirm, setConfirm}) => {
                 onChange={(e) => setMoneyForBadge(e.target.value)}
               />
               <button
-                className="btn btn-info m-2"
+                className="btn-saved"
                 onClick={() =>
                   handleTransfer(moneyForBadge, handleTransferBadge)
                 }

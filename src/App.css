@@ -123,10 +123,37 @@ label {
 
 .rigth {
   float: right;
-  margin-right: 550px;
+  margin-right: 5vw;
 }
 
+.container-btn-acount {
+  display: flex;
+  justify-content: center;
+}
 
+.btn-acount {
+  display: inline-block
+  ;
+}
+
+.container-btn-option {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.container-btn-available {
+  width: 100%;
+  display: flex;
+}
+
+.btn-available, .btn-saved {
+  width: 100%;
+  padding: 5px;
+  margin: 10px;
+  border: 1px solid ;
+  border-radius: 10px;
+}
 
 /*-------------------- LOGIN PAGE -------------------- */
 

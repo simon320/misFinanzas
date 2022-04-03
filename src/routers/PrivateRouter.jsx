@@ -23,9 +23,9 @@ const PrivateRouter = ({ log }) => {
       {
         logAcount ?
           <HomePage /> 
-          :
-          <StartingAcount />
-      }
+           :
+           <StartingAcount />
+       }
     </> 
     : <Navigate to="/auth/login" />
 

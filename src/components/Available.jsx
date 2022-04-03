@@ -101,18 +101,20 @@ const Available = ({confirm, setConfirm}) => {
       default:
         return (
           <>
-            <button
-              className="btn btn-info m-2"
-              onClick={() => setViewOption("distribute")}
-            >
-              Repartir en dias
-            </button>
-            <button
-              className="btn btn-info m-2"
-              onClick={() => setViewOption("save")}
-            >
-              Ahorrar
-            </button>
+            <div className="container-btn-available">
+              <button
+                className="btn-available"
+                onClick={() => setViewOption("distribute")}
+                >
+                Repartir en dias
+              </button>
+              <button
+                className="btn-available"
+                onClick={() => setViewOption("save")}
+                >
+                Ahorrar
+              </button>
+            </div>
           </>
         );
     }

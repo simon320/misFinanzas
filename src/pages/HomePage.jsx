@@ -66,28 +66,32 @@ const HomePage = () => {
       <nav>
         <h1>misFinanzas</h1>
         <p>{userName}</p>
-        <label>
-          Cuenta
-          <button className="btn btn-info m-2" onClick={handleClickAvailable}>
-            ${amount}
-          </button>{" "}
-        </label>
-        <label>
-          Ahorrado
-          <button className="btn btn-info m-2" onClick={handleClickSaved}>
-            ${saving}
-          </button>{" "}
-        </label>
-        {viewOptionAvailable && <Available  confirm={confirm} setConfirm={setConfirm} />}
-        {viewOptionSaved && (
-          <Saved confirm={confirm} setConfirm={setConfirm} />
-        )}{" "}
+        <div className="container-btn-acount">
+          <label>
+            Cuenta
+            <button className="btn btn-acount" onClick={handleClickAvailable}>
+              ${amount}
+            </button>{" "}
+          </label>
+          <label>
+            Ahorrado
+            <button className="btn" onClick={handleClickSaved}>
+              ${saving}
+            </button>{" "}
+          </label>
+        </div>
+        <div className="container-btn-option">
+          {viewOptionAvailable && <Available  confirm={confirm} setConfirm={setConfirm} />}
+          {viewOptionSaved && (
+            <Saved confirm={confirm} setConfirm={setConfirm} />
+            )}{" "}
+        </div>
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link> <br />
         {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
       </nav>
-      <button className="btn btn-danger rigth" onClick={handleLogout}>
+      <button className="btn rigth" onClick={handleLogout}>
         Cerrar Seccion
       </button>
       <br />
