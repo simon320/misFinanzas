@@ -7,9 +7,9 @@ import { loadDataAcount } from "../helpers/loadDataAcount";
 
 const Saved = ({confirm, setConfirm}) => {
   const uid = useSelector((state) => state.authReducer.uid);
-  const amount = useSelector((state) => state.acountReducer.user.amount);
-  const saving = useSelector((state) => state.acountReducer.user.saved);
-  const badge = useSelector((state) => state.acountReducer.user.valuta);
+  const amount = useSelector((state) => state.acountReducer.user[0].amount);
+  const saving = useSelector((state) => state.acountReducer.user[0].saved);
+  const badge = useSelector((state) => state.acountReducer.user[0].valuta);
   const {dolar} = badge;
   const dispatch = useDispatch();
 

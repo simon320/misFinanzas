@@ -16,17 +16,21 @@ export const createAcount = (amount) => {
       }],
     };
 
-    const reference = await db
-      .collection(`users/${uid}/acount`)
-      .add(acount);
+    // const reference = await db
+    //   .collection(`users/${uid}/acount`)
+    //   .add(acount);
+
+    const reference = db.collection(`users/${uid}/acount`)
+
+    reference.add(acount);
 
     const id = reference.id;
-    const newAcount = {
+    const startAcount = {
       id,
       ...acount
     };
 
-    dispatch(addAcount(newAcount));
+    dispatch(addAcount(startAcount));
   };
 }
 
@@ -35,9 +39,14 @@ export const editAmount = (amount) => {
     const { uid } = getState().authReducer;
     const { user } = getState().acountReducer;
     
-    const amountRef = await db.collection(`users/${uid}/acount`).doc(user.id).update({
+    const amountRef = db.collection(`users/${uid}/acount`)
+    
+    amountRef.doc(user.id).update({
       amount: amount
     })
+    // const amountRef = await db.collection(`users/${uid}/acount`).doc(user.id).update({
+    //   amount: amount
+    // })
 
     // const dataAcount = await loadDataAcount(uid);
     // dispatch(readAcount(dataAcount));
@@ -49,11 +58,11 @@ export const editSaving = (saved) => {
     const { uid } = getState().authReducer;
     const { user } = getState().acountReducer;
     
-    let savedRef = db.collection(`users/${uid}/acount`)
+    let savedRef = db.collection(`users/${uid}/acount`);
 
     savedRef.doc(user.id).update({
         saved: saved
-    })
+    });
   };
 };
 
@@ -62,13 +71,13 @@ export const editBadge = (badge) => {
     const { uid } = getState().authReducer;
     const { user } = getState().acountReducer;
     
-    let badgeRef = db.collection(`users/${uid}/acount`)
+    let badgeRef = db.collection(`users/${uid}/acount`);
 
     badgeRef.doc(user.id).update({
         valuta: {
           dolar: badge
         } 
-    })
+    });
 
     // const dataAcount = await loadDataAcount(uid);
     // dispatch(readAcount(dataAcount));

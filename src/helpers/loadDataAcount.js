@@ -1,7 +1,12 @@
 import { db } from "../firebase/config-firebase";
 
 export const loadDataAcount = async (uid) => {
-  const response = await db.collection(`users/${uid}/acount`).get();
+  let response
+
+  try {
+    response = await db.collection(`users/${uid}/acount`).get();
+  } catch (error){new Error("Error al cargar")}
+
   let data = {};
 
   response.forEach((acount) => {

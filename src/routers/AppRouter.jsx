@@ -1,37 +1,23 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  Redirect,
-  useNavigate,
-  Navigate,
-} from "react-router-dom";
-import HomePage from "../pages/HomePage";
-
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-
 import { firebase } from "../firebase/config-firebase";
 
-import { login } from "../redux/actions/auth";
 import PrivateRouter from "./PrivateRouter";
 import PublicRouter from "./PublicRouter";
-import StartingAcount from "../pages/StartingAcount";
-import { loadDataRegister } from "../helpers/loadDataRegister";
-import { loadDataAcount } from "../helpers/loadDataAcount";
-import { cleanLogout, readRegister } from "../redux/actions/dateRegister";
-import { readAcount } from "../redux/actions/acount";
 import LoginPage from "../pages/LoginPage";
 import RegisterPage from "../pages/RegisterPage";
+import { loadDataRegister } from "../helpers/loadDataRegister";
+import { loadDataAcount } from "../helpers/loadDataAcount";
+import { login } from "../redux/actions/auth";
+import { readRegister } from "../redux/actions/dateRegister";
+import { readAcount } from "../redux/actions/acount";
+import { loadDataAcountSnap } from "../helpers/loadDataAcountSnap";
 
 const AppRouter = () => {
   const dispatch = useDispatch();
 
   const [log, setLog] = useState(false);
-  // const [logAcount, setLogAcount] = useState(false);
-
-  // const acountUser = useSelector((state) => state.acountReducer.user.amount);
-  // console.log(acountUser)
 
   useEffect(() => {
     firebase.auth().onAuthStateChanged(async (user) => {
@@ -39,9 +25,14 @@ const AppRouter = () => {
         dispatch(login(user.uid, user.displayName));
 
         const dataRegister = await loadDataRegister(user.uid);
+          console.log(dataRegister)
           dispatch(readRegister(dataRegister));
-
-        const dataAcount = await loadDataAcount(user.uid);
+          
+          const dataSnap = loadDataAcountSnap(user.uid);
+          console.log(dataSnap, "De AppRouter")
+          // dispatch(readAcount(dataSnap));
+          const dataAcount = await loadDataAcount(user.uid);
+          console.log(dataAcount)
           dispatch(readAcount(dataAcount));
         
         setLog(true);
@@ -49,6 +40,8 @@ const AppRouter = () => {
       } else {
         setLog(false);
       }
+      console.log("appRouter Clg")
+
     });
   }, []);
 

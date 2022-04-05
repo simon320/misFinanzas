@@ -1,18 +1,20 @@
 import { db } from "../firebase/config-firebase";
 
 
-export const loadDataAcountSnap =  (uid) => {
-  
-  let data = {};
-  
+export const loadDataAcountSnap = (uid) => {
   const acountRef = db.collection(`users/${uid}/acount`)
+  let data = []
+
   acountRef.onSnapshot((snap) => {
     snap.forEach((acount) => {
       const acountData = acount.data();
-      data = {
-        id: acount.id,
-        ...acountData,
-      };
+      data.push(
+        {
+          id: acount.id,
+          ...acountData,
+        }
+      )
+
     });
   });
 

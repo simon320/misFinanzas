@@ -22,9 +22,9 @@ const HomePage = () => {
 
   const userName = useSelector((state) => state.authReducer.displayName);
   const uid = useSelector((state) => state.authReducer.uid);
-  const acount = useSelector((state) => state.acountReducer.user);
-  const amount = useSelector((state) => state.acountReducer.user.amount);
-  const saving = useSelector((state) => state.acountReducer.user.saved);
+  const acount = useSelector((state) => state.acountReducer.user[0]);
+  const amount = useSelector((state) => state.acountReducer.user[0].amount);
+  const saving = useSelector((state) => state.acountReducer.user[0].saved);
 
   console.log(amount);
   console.log(uid);
@@ -54,10 +54,20 @@ const HomePage = () => {
     setViewOptionAvailable(false);
   };
 
-  useEffect( async  ()=>{
-    console.log("see")
-    const dataAcount = await loadDataAcount(uid);
-    dispatch(readAcount(dataAcount));
+  useEffect(async ()=>{
+
+    const dataSnap =  loadDataAcountSnap(uid)
+    console.log(dataSnap, "De HomePage tilin")
+
+
+    console.log("HP useEffect async")
+    let dataAcount, saveAcount = acount
+    try {
+      dataAcount = await loadDataAcount(uid);
+    } catch { new Error ("no me cargue!")}
+    console.log(dataAcount)
+
+    dispatch(readAcount(dataSnap))
   }, [confirm]) 
 
 
@@ -81,10 +91,10 @@ const HomePage = () => {
           </label>
         </div>
         <div className="container-btn-option">
-          {viewOptionAvailable && <Available  confirm={confirm} setConfirm={setConfirm} />}
-          {viewOptionSaved && (
-            <Saved confirm={confirm} setConfirm={setConfirm} />
-            )}{" "}
+          {viewOptionAvailable &&
+           <Available  confirm={confirm} setConfirm={setConfirm} />}
+          {viewOptionSaved && 
+            <Saved confirm={confirm} setConfirm={setConfirm} />}{" "}
         </div>
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}

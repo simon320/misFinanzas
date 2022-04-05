@@ -6,8 +6,8 @@ import { loadDataAcount } from "../helpers/loadDataAcount";
 
 const Available = ({confirm, setConfirm}) => {
   const uid = useSelector((state) => state.authReducer.uid);
-  const amount = useSelector((state) => state.acountReducer.user.amount);
-  const saving = useSelector((state) => state.acountReducer.user.saved);
+  const amount = useSelector((state) => state.acountReducer.user[0].amount);
+  const saving = useSelector((state) => state.acountReducer.user[0].saved);
 
   const dispatch = useDispatch();
 
@@ -37,7 +37,7 @@ const Available = ({confirm, setConfirm}) => {
     setViewOptionAvailable(false);
   };
 
-  const handleSaved = async (amountAcount, moneySave, save) => {
+  const handleSaved = (amountAcount, moneySave, save) => {
     parseInt(amountAcount) >= parseInt(moneySave)
       ? save(parseInt(moneySave))
       : window.alert("No tienes esa cantidad de dinero en la cuenta");
