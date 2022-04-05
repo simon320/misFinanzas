@@ -8,7 +8,7 @@ import StartingAcount from "../pages/StartingAcount";
 const PrivateRouter = ({ log }) => {
   const [logAcount, setLogAcount] = useState(false);
 
-  const acountUser = useSelector((state) => state.acountReducer.user[0].amount);
+  const acountUser = useSelector((state) => state.acountReducer.user.amount);
 
   useEffect(()=>{
     if (acountUser == undefined) {

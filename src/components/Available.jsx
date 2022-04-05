@@ -6,8 +6,8 @@ import { loadDataAcount } from "../helpers/loadDataAcount";
 
 const Available = ({confirm, setConfirm}) => {
   const uid = useSelector((state) => state.authReducer.uid);
-  const amount = useSelector((state) => state.acountReducer.user[0].amount);
-  const saving = useSelector((state) => state.acountReducer.user[0].saved);
+  const amount = useSelector((state) => state.acountReducer.user.amount);
+  const saving = useSelector((state) => state.acountReducer.user.saved);
 
   const dispatch = useDispatch();
 

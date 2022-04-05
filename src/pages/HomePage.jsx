@@ -22,9 +22,9 @@ const HomePage = () => {
 
   const userName = useSelector((state) => state.authReducer.displayName);
   const uid = useSelector((state) => state.authReducer.uid);
-  const acount = useSelector((state) => state.acountReducer.user[0]);
-  const amount = useSelector((state) => state.acountReducer.user[0].amount);
-  const saving = useSelector((state) => state.acountReducer.user[0].saved);
+  const acount = useSelector((state) => state.acountReducer.user);
+  const amount = useSelector((state) => state.acountReducer.user.amount);
+  const saving = useSelector((state) => state.acountReducer.user.saved);
 
   console.log(amount);
   console.log(uid);
@@ -67,7 +67,7 @@ const HomePage = () => {
     } catch { new Error ("no me cargue!")}
     console.log(dataAcount)
 
-    dispatch(readAcount(dataSnap))
+    dispatch(readAcount(dataAcount))
   }, [confirm]) 
 
 
