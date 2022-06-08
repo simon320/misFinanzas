@@ -12,8 +12,8 @@ export const loadDataAcount = async (uid) => {
   response.forEach((acount) => {
     const acountData = acount.data();
     data = {
-      id: acount.id,
       ...acountData,
+      id: acount.id,
     };
   });
 

@@ -17,8 +17,17 @@ const HomePage = () => {
     viewOptionAvailable,
     setViewOptionAvailable,
     viewOptionSaved,
-    setViewOptionSaved
+    setViewOptionSaved,
+    daysForDistribute,
+    setDaysForDistribute,
+    amountPerDay,
+    setAmountPerDay,
+    untilDaySelected
   } = useContext(FinanceContext);
+
+  const [y, m, d] = untilDaySelected.split("-")
+
+
 
   const userName = useSelector((state) => state.authReducer.displayName);
   const uid = useSelector((state) => state.authReducer.uid);
@@ -26,11 +35,6 @@ const HomePage = () => {
   const amount = useSelector((state) => state.acountReducer.user.amount);
   const saving = useSelector((state) => state.acountReducer.user.saved);
 
-  console.log(amount);
-  console.log(uid);
-  console.log(acount);
-
-  const [moneyAvailable, setMoneyAvailable] = useState(amount);
   const [confirm, setConfirm] = useState(false);
   const dispatch = useDispatch();
 
@@ -57,15 +61,11 @@ const HomePage = () => {
   useEffect(async ()=>{
 
     const dataSnap =  loadDataAcountSnap(uid)
-    console.log(dataSnap, "De HomePage tilin")
 
-
-    console.log("HP useEffect async")
     let dataAcount, saveAcount = acount
     try {
       dataAcount = await loadDataAcount(uid);
     } catch { new Error ("no me cargue!")}
-    console.log(dataAcount)
 
     dispatch(readAcount(dataAcount))
   }, [confirm]) 
@@ -96,6 +96,12 @@ const HomePage = () => {
           {viewOptionSaved && 
             <Saved confirm={confirm} setConfirm={setConfirm} />}{" "}
         </div>
+            <div>
+              <h3>
+                x/Dia <span>${amountPerDay}</span>
+              </h3>
+              <p>Hasta {d}/{m}</p>
+            </div>
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link> <br />

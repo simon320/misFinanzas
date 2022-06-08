@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext, useEffect, useRef } from "react";
 import { FinanceContext } from "../context/financeContext";
 import { useSelector, useDispatch } from "react-redux";
 import { editAmount, editSaving, readAcount } from "../redux/actions/acount";
@@ -16,6 +16,10 @@ const Available = ({confirm, setConfirm}) => {
     setViewOptionAvailable,
     daysForDistribute,
     setDaysForDistribute,
+    amountPerDay, 
+    setAmountPerDay,
+    untilDaySelected, 
+    setUntilDaySelected
   } = useContext(FinanceContext);
 
   const [viewOption, setViewOption] = useState("");
@@ -52,12 +56,37 @@ const Available = ({confirm, setConfirm}) => {
   // }, [amount]);
 
   //////////// Distirubucion del dinero en dias ///////////// TERMINAR!!!!!!!!!
+  const amountPerRef = useRef();
+
+  function dayInMonth(m, y) {
+    return new Date(y, m, 0).getDate();
+  }
+
   const handleDistribute = () => {
-    // dispatch(editAmount(parseInt(amount) / daysForDistribute));
-    setViewOptionAvailable(false);
+    let date = new Date()
+    const currentDay = date.getDate()
+    const currentMonth = date.getMonth() + 1
+    const [y, m, d] = untilDaySelected.split("-")
+    const day = parseInt(d);
+    const month = parseInt(m);
+    const year = parseInt(y);
+    const currentMonthDays = dayInMonth(month, year)
+
+    if (currentMonth === month) {
+      setDaysForDistribute(day - currentDay)
+    } 
+    
+    else if ((currentMonth +1) === month){
+      // const nextMonthDays = dayInMonth(month, year)
+      setDaysForDistribute((currentMonthDays - currentDay) + day)
+    }
+
   };
 
-
+  useEffect(()=>{
+    setAmountPerDay(Math.round(amount / daysForDistribute))
+    console.log(daysForDistribute)
+  }, [setDaysForDistribute])
 
   const option = () => {
     switch (viewOption) {
@@ -67,13 +96,16 @@ const Available = ({confirm, setConfirm}) => {
             <label>
               ¿En cuantos dias queres distribuir el dinero?
               <input
-                type="number"
+                type="date"
                 placeholder="Selecciona una fecha"
-                value={daysForDistribute}
-                onChange={(e) => setDaysForDistribute(e.target.value)}
+                value={untilDaySelected}
+                onChange={(e) => setUntilDaySelected(e.target.value)}
               />
               <button className="btn btn-info m-2" onClick={handleDistribute}>
                 Distribuir
+              </button>
+              <button className="btn btn-info m-2" onClick={()=> setViewOptionAvailable(false)}>
+                Cerrar
               </button>
             </label>
           </>
@@ -120,7 +152,12 @@ const Available = ({confirm, setConfirm}) => {
     }
   };
 
-  return <div>{viewOptionAvailable && option()}</div>;
+  return (
+    <div>
+      {viewOptionAvailable && option()}
+
+    </div>
+  );
 };;
 
 export default Available;

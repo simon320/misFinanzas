@@ -26,8 +26,8 @@ export const createAcount = (amount) => {
 
     const id = reference.id;
     const startAcount = {
-      id,
-      ...acount
+      ...acount,
+      id
     };
 
     dispatch(addAcount(startAcount));

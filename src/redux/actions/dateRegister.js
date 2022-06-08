@@ -49,6 +49,7 @@ export const deleteRegisterDB = (id) => {
     dispatch(deleteRegister(id))
   };
 };
+
 export const deleteRegister = (id) => {
   return {
     type: types.DELETE_REGISTER,

@@ -9,7 +9,8 @@ export const FinanceProvider = ({ children }) => {
   const [moneyInBadge, setMoneyInBadge] = useLocalStorage('moneyInBadge', 0)
 
   const [amountPerDay, setAmountPerDay] = useLocalStorage('amountPerDay', "")
-  const [daysForDistribute, setDaysForDistribute] = useLocalStorage('daysForDistribute', "");
+  const [untilDaySelected, setUntilDaySelected] = useLocalStorage('untilDaySelected', "")
+  const [daysForDistribute, setDaysForDistribute] = useLocalStorage('daysForDistribute', 0);
   const [viewOptionAvailable, setViewOptionAvailable] = useState(false);
   const [viewOptionSaved, setViewOptionSaved] = useState(false);
   
@@ -21,6 +22,7 @@ export const FinanceProvider = ({ children }) => {
       value={{
         moneyInBadge, setMoneyInBadge,
         amountPerDay, setAmountPerDay,
+        untilDaySelected, setUntilDaySelected,
         daysForDistribute, setDaysForDistribute,
         viewOptionAvailable, setViewOptionAvailable,
         viewOptionSaved, setViewOptionSaved,

@@ -11,8 +11,8 @@ export const loadDataAcountSnap = (uid) => {
       const acountData = acount.data();
       data = 
         {
-          id: acount.id,
           ...acountData,
+          id: acount.id,
         }
       });
       console.log(data)
