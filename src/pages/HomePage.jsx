@@ -33,11 +33,12 @@ const HomePage = () => {
   const uid = useSelector((state) => state.authReducer.uid);
   const acount = useSelector((state) => state.acountReducer.user);
   const amount = useSelector((state) => state.acountReducer.user.amount);
+  const amountPerDays = useSelector((state) => state.acountReducer.user.amountPerDay);
   const saving = useSelector((state) => state.acountReducer.user.saved);
 
   const [confirm, setConfirm] = useState(false);
-  const dispatch = useDispatch();
 
+  const dispatch = useDispatch();
   const navigation = useNavigate();
 
   const handleLogout = () => {
@@ -68,7 +69,7 @@ const HomePage = () => {
     } catch { new Error ("no me cargue!")}
 
     dispatch(readAcount(dataAcount))
-  }, [confirm]) 
+  }, [confirm])
 
 
   return (
@@ -98,7 +99,7 @@ const HomePage = () => {
         </div>
             <div>
               <h3>
-                x/Dia <span>${amountPerDay}</span>
+                x/Dia <span>${amountPerDays}</span>
               </h3>
               <p>Hasta {d}/{m}</p>
             </div>

@@ -24,7 +24,7 @@ const StartingAcount = () => {
   };
 
   const handleClick = () => {
-    dispatch(createAcount(amount));
+    dispatch(createAcount(username, amount));
   };
 
   return (

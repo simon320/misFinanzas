@@ -56,7 +56,7 @@ const Calendar = () => {
                     >
                       <img src={editDay} alt="" className="img-editDay" />
                       {col.value}
-                      <p className="avaible">${col.amountPerDay}</p>
+                      <p className="avaible">{col.amountPerDay}</p>
                     </td>
                   ) : (
                     <td
@@ -70,7 +70,7 @@ const Calendar = () => {
                     >
                       {/* <img src={editDay} alt="" className="img-editDay" /> */}
                       {col.value}
-                      <p className="avaible">${col.amountPerDay}</p>
+                      <p className="avaible">{col.amountPerDay}</p>
                     </td>
                   )
                 )}

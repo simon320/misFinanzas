@@ -1,13 +1,12 @@
 import { db } from "../../firebase/config-firebase";
-import { loadDataAcount } from "../../helpers/loadDataAcount";
-import { loadDataAcountSnap } from "../../helpers/loadDataAcountSnap";
 import { types } from "./types";
 
-export const createAcount = (amount) => {
+export const createAcount = (user, amount) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
 
     const acount = {
+      user: user,
       amount: amount,
       amountPerDay: 0,
       saved: 0,
@@ -15,10 +14,6 @@ export const createAcount = (amount) => {
         dolar: 0
       }],
     };
-
-    // const reference = await db
-    //   .collection(`users/${uid}/acount`)
-    //   .add(acount);
 
     const reference = db.collection(`users/${uid}/acount`)
 
@@ -44,12 +39,19 @@ export const editAmount = (amount) => {
     amountRef.doc(user.id).update({
       amount: amount
     })
-    // const amountRef = await db.collection(`users/${uid}/acount`).doc(user.id).update({
-    //   amount: amount
-    // })
+  };
+};
 
-    // const dataAcount = await loadDataAcount(uid);
-    // dispatch(readAcount(dataAcount));
+export const editAmountPerDay = (amountPerDay) => {
+  return async (dispatch, getState) => {
+    const { uid } = getState().authReducer;
+    const { user } = getState().acountReducer;
+    
+    const amountPerDayRef = db.collection(`users/${uid}/acount`)
+    
+    amountPerDayRef.doc(user.id).update({
+      amountPerDay: amountPerDay
+    })
   };
 };
 
@@ -78,9 +80,6 @@ export const editBadge = (badge) => {
           dolar: badge
         } 
     });
-
-    // const dataAcount = await loadDataAcount(uid);
-    // dispatch(readAcount(dataAcount));
   };
 };
 

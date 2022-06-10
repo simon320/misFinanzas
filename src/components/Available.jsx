@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect, useRef } from "react";
 import { FinanceContext } from "../context/financeContext";
 import { useSelector, useDispatch } from "react-redux";
-import { editAmount, editSaving, readAcount } from "../redux/actions/acount";
+import { editAmount, editAmountPerDay, editSaving, readAcount } from "../redux/actions/acount";
 import { loadDataAcount } from "../helpers/loadDataAcount";
 
 const Available = ({confirm, setConfirm}) => {
@@ -16,8 +16,6 @@ const Available = ({confirm, setConfirm}) => {
     setViewOptionAvailable,
     daysForDistribute,
     setDaysForDistribute,
-    amountPerDay, 
-    setAmountPerDay,
     untilDaySelected, 
     setUntilDaySelected
   } = useContext(FinanceContext);
@@ -31,13 +29,12 @@ const Available = ({confirm, setConfirm}) => {
     const currentSave = saving
       ? saving + parseInt(moneyForSaved)
       : parseInt(moneyForSaved);
-      console.log(saving)
 
     dispatch(editAmount(currentAmount));
     dispatch(editSaving(currentSave));
+    dispatch(editAmountPerDay(Math.round(currentAmount / daysForDistribute)));
 
     setConfirm(!confirm)
-    
     setViewOptionAvailable(false);
   };
 
@@ -45,19 +42,9 @@ const Available = ({confirm, setConfirm}) => {
     parseInt(amountAcount) >= parseInt(moneySave)
       ? save(parseInt(moneySave))
       : window.alert("No tienes esa cantidad de dinero en la cuenta");
-
-    // const dataAcount = await loadDataAcount(userId);
-    // dispatch(readAcount(dataAcount));
   };
 
-  // useEffect(() => {
-  //   console.log(amount)
-  //   setMoneyAvailable(amount);
-  // }, [amount]);
-
-  //////////// Distirubucion del dinero en dias ///////////// TERMINAR!!!!!!!!!
-  const amountPerRef = useRef();
-
+  //////////// Distirubucion del dinero en dias /////////////
   function dayInMonth(m, y) {
     return new Date(y, m, 0).getDate();
   }
@@ -67,26 +54,26 @@ const Available = ({confirm, setConfirm}) => {
     const currentDay = date.getDate()
     const currentMonth = date.getMonth() + 1
     const [y, m, d] = untilDaySelected.split("-")
-    const day = parseInt(d);
+    const daysInMonth = parseInt(d);
     const month = parseInt(m);
     const year = parseInt(y);
     const currentMonthDays = dayInMonth(month, year)
 
     if (currentMonth === month) {
-      setDaysForDistribute(day - currentDay)
+      setDaysForDistribute(daysInMonth - (currentDay - 1))
+      dispatch(editAmountPerDay(Math.round(amount / daysForDistribute)))
+      setConfirm(!confirm)
+      setViewOptionAvailable(false);
     } 
     
     else if ((currentMonth +1) === month){
-      // const nextMonthDays = dayInMonth(month, year)
-      setDaysForDistribute((currentMonthDays - currentDay) + day)
+      setDaysForDistribute((currentMonthDays - (currentDay - 1)) + daysInMonth)
+      dispatch(editAmountPerDay(Math.round(amount / daysForDistribute)))
+      setConfirm(!confirm)
+      setViewOptionAvailable(false);
     }
-
   };
 
-  useEffect(()=>{
-    setAmountPerDay(Math.round(amount / daysForDistribute))
-    console.log(daysForDistribute)
-  }, [setDaysForDistribute])
 
   const option = () => {
     switch (viewOption) {
