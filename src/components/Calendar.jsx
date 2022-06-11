@@ -6,10 +6,10 @@ import { FinanceContext } from "../context/financeContext";
 import Date from "./Date";
 import "../App.css";
 import editDay from "../assets/editDay1.png";
+import { useSelector } from "react-redux";
 
 const Calendar = () => {
   const {
-    today,
     selectedDate,
     todayFormatted,
     calendarRows,
@@ -19,10 +19,17 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
-  const [viewDate, setViewDate] = useState("");
+  const amountPerDay = useSelector((state) => state.acountReducer.user.amountPerDay);
 
+  const { untilDaySelected } = useContext(FinanceContext);
+  const [ y, m, d ] = untilDaySelected.split("-");
+  const [ today, currentMonth ] = todayFormatted.split("-");
+
+  const [viewDate, setViewDate] = useState("");
   const handleClick = (e) => {
-    setViewDate(e.date);
+    if (viewDate == e.date) {
+      setViewDate("")
+    } else {setViewDate(e.date)}
   };
 
   return (
@@ -54,9 +61,15 @@ const Calendar = () => {
                       className={`${col.classes} center relative today table-dark text-bold`}
                       onClick={() => handleClick(col)}
                     >
-                      <img src={editDay} alt="" className="img-editDay" />
                       {col.value}
-                      <p className="avaible">{col.amountPerDay}</p>
+                      {
+                        col.value <= d 
+                          & col.value >= today 
+                          & (col.date).split("-")[1] >= currentMonth
+                          & (col.date).split("-")[1] <= m[1]
+                          ? <p className="avaible">${amountPerDay}</p>
+                          : ""
+                      }
                     </td>
                   ) : (
                     <td
@@ -68,9 +81,15 @@ const Calendar = () => {
                       }`}
                       onClick={() => handleClick(col)}
                     >
-                      {/* <img src={editDay} alt="" className="img-editDay" /> */}
                       {col.value}
-                      <p className="avaible">{col.amountPerDay}</p>
+                      {
+                        col.value <= d 
+                          & col.value >= today 
+                          & (col.date).split("-")[1] >= currentMonth
+                          & (col.date).split("-")[1] <= m[1]
+                          ? <p className="avaible">${amountPerDay}</p>
+                          : ""
+                      }
                     </td>
                   )
                 )}
@@ -79,6 +98,9 @@ const Calendar = () => {
           })}
         </tbody>
       </table>
+
+
+{/* ------ RENDER DATE SELECTED -------------------------------------------------------------------------------------------- */}
       {Object.values(calendarRows).map((week) => {
         return (
           <div key={week[0].date}>
@@ -91,13 +113,21 @@ const Calendar = () => {
                     nameDay={date.nameDay}
                     value={date.value}
                     date={date.date}
-                    amountPerDay={date.amountPerDay}
+                    amountPerDay={
+                      date.value <= d 
+                        & date.value >= today 
+                        & (date.date).split("-")[1] >= currentMonth
+                        & (date.date).split("-")[1] <= m[1]
+                        ? amountPerDay
+                        : 0
+                    }
                   />
                 )
             )}
           </div>
         );
       })}
+
     </div>
   );
 };

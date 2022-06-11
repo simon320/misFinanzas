@@ -22,7 +22,6 @@ const Row = ({ currentDate, date }) => {
     income += parseInt(dayIncomeArray[i]);
   }
   
-  
   // TOTAL EXPENSE
   let expense = 0
   let dayExpensesTrue = dataArray.map((dayExpense) => dayExpense.character !== "Income" && dayExpense.typeRegister)//Creo array con los montos de los gastos y valor "false" en lugar de ingresos.
@@ -31,9 +30,7 @@ const Row = ({ currentDate, date }) => {
     expense += parseInt(dayExpenseArray[i]);
   }
 
-  // useEffect(()=>{
-  //   setAmountDay((amountDay + income) - expense);
-  // }, [income])
+  let totalDay = income - expense;
 
   return (
     <table className="center">
@@ -81,6 +78,17 @@ const Row = ({ currentDate, date }) => {
           <td colSpan={2}>
             Gastos: ${expense}
           </td>
+        </tr>
+        <tr>
+          <td>
+            <p>Total del dia: ${totalDay}</p>
+          </td>
+          {
+            totalDay !== 0 &&
+            <td>
+              <button>Repartir Diferencia</button>
+            </td>
+          }
         </tr>
       </tfoot>
     </table>

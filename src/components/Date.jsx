@@ -8,7 +8,6 @@ import RowExpenseAdd from "./RowExpenseAdd";
 const Date = (props) => {
   const currentDate = useSelector((state) => state.registerReducer.dataRegister);
 
-  const [amountDay, setAmountDay] = useState(props.amountPerDay);
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
 
@@ -52,7 +51,7 @@ const Date = (props) => {
         }}
       >
         <p> {props.nameDay} {props.value}</p>
-        <p>${amountDay}</p>
+        <p>${props.amountPerDay}</p>
       </div>
 
       <Row currentDate={currentDate} date={props.date} />

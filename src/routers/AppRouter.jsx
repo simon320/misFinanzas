@@ -25,14 +25,11 @@ const AppRouter = () => {
         dispatch(login(user.uid, user.displayName));
 
         const dataRegister = await loadDataRegister(user.uid);
-          console.log(dataRegister)
           dispatch(readRegister(dataRegister));
           
           const dataSnap = loadDataAcountSnap(user.uid);
-          console.log(dataSnap, "De AppRouter")
-          // dispatch(readAcount(dataSnap));
+
           const dataAcount = await loadDataAcount(user.uid);
-          console.log(dataAcount)
           dispatch(readAcount(dataAcount));
         
         setLog(true);
@@ -40,7 +37,6 @@ const AppRouter = () => {
       } else {
         setLog(false);
       }
-      console.log("appRouter Clg")
 
     });
   }, []);

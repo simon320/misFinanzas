@@ -15,9 +15,8 @@ export const loadDataAcountSnap = (uid) => {
           id: acount.id,
         }
       });
-      console.log(data)
+
   });
   
-  console.log(data)
   return data;
 };

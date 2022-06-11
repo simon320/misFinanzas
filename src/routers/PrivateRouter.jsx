@@ -16,7 +16,6 @@ const PrivateRouter = ({ log }) => {
     } else {
       setLogAcount(true)
     }
-    console.log("PrivaterRouter Clg")
   }, [acountUser])
 
   return log ? 
