@@ -19,10 +19,12 @@ const Calendar = () => {
     firstDayInMonth,
   } = useCalendar();
 
+
+
   const amountPerDay = useSelector((state) => state.acountReducer.user.amountPerDay);
 
-  const { untilDaySelected } = useContext(FinanceContext);
-  const [ y, m, d ] = untilDaySelected.split("-");
+  const { untilDaySelected, daysForDistribute } = useContext(FinanceContext);
+  const [ y, m, d ] = untilDaySelected ? untilDaySelected.split("-") : todayFormatted.split("-");
   const [ today, currentMonth ] = todayFormatted.split("-");
 
   const [viewDate, setViewDate] = useState("");
@@ -54,7 +56,7 @@ const Calendar = () => {
           {Object.values(calendarRows).map((cols) => {
             return (
               <tr className="border-b-ligth" key={cols[0].date}>
-                {cols.map((col) =>
+                {cols.map((col) => 
                   col.date === todayFormatted ? (
                     <td
                       key={col.date}
@@ -62,14 +64,7 @@ const Calendar = () => {
                       onClick={() => handleClick(col)}
                     >
                       {col.value}
-                      {
-                        col.value <= d 
-                          & col.value >= today 
-                          & (col.date).split("-")[1] >= currentMonth
-                          & (col.date).split("-")[1] <= m[1]
-                          ? <p className="avaible">${amountPerDay}</p>
-                          : ""
-                      }
+                      <p style={{color: '#22bf22'}}>{col.amountPerDay}</p>
                     </td>
                   ) : (
                     <td
@@ -82,14 +77,7 @@ const Calendar = () => {
                       onClick={() => handleClick(col)}
                     >
                       {col.value}
-                      {
-                        col.value <= d 
-                          & col.value >= today 
-                          & (col.date).split("-")[1] >= currentMonth
-                          & (col.date).split("-")[1] <= m[1]
-                          ? <p className="avaible">${amountPerDay}</p>
-                          : ""
-                      }
+                      <p style={{color: '#22bf22'}}>{col.amountPerDay}</p>
                     </td>
                   )
                 )}
@@ -114,6 +102,15 @@ const Calendar = () => {
                     value={date.value}
                     date={date.date}
                     amountPerDay={
+
+                      (date.date).split("-")[1] == currentMonth
+                        ? date.value <= d 
+                          & date.value >= today
+                            ? amountPerDay
+                            : 0
+
+                        :
+
                       date.value <= d 
                         & date.value >= today 
                         & (date.date).split("-")[1] >= currentMonth

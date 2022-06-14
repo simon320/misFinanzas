@@ -106,7 +106,7 @@ const HomePage = () => {
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}
         <Link to={"ForeignExchange"}>Divizas</Link> <br />
-        {/* <input type="date" value={dayStart} onChange={(e)=> setDayStart(e.target.value)} /> */}
+       
       </nav>
       <button className="btn rigth" onClick={handleLogout}>
         Cerrar Seccion

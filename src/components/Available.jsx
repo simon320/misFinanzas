@@ -61,14 +61,14 @@ const Available = ({confirm, setConfirm}) => {
 
     if (currentMonth === month) {
       setDaysForDistribute(daysInMonth - (currentDay - 1))
-      dispatch(editAmountPerDay(Math.round(amount / daysForDistribute)))
+      dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
       setConfirm(!confirm)
       setViewOptionAvailable(false);
     } 
     
     else if ((currentMonth +1) === month){
       setDaysForDistribute((currentMonthDays - (currentDay - 1)) + daysInMonth)
-      dispatch(editAmountPerDay(Math.round(amount / daysForDistribute)))
+      dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
       setConfirm(!confirm)
       setViewOptionAvailable(false);
     }
@@ -88,7 +88,7 @@ const Available = ({confirm, setConfirm}) => {
                 value={untilDaySelected}
                 onChange={(e) => setUntilDaySelected(e.target.value)}
               />
-              <button className="btn btn-info m-2" onClick={handleDistribute}>
+              <button className="btn btn-info m-2" onClick={() => handleDistribute()}>
                 Distribuir
               </button>
               <button className="btn btn-info m-2" onClick={()=> setViewOptionAvailable(false)}>
