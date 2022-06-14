@@ -51,7 +51,7 @@ const Date = (props) => {
         }}
       >
         <p> {props.nameDay} {props.value}</p>
-        <p>${props.amountPerDay}</p>
+        <p>{props.amountPerDay}</p>
       </div>
 
       <Row currentDate={currentDate} date={props.date} />

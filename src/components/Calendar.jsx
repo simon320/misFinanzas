@@ -1,14 +1,13 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useCalendar } from "../hooks/useCalendar";
-import { useLocalStorage } from "../hooks/useLocalStorage";
-import { Link, Outlet } from "react-router-dom";
 import { FinanceContext } from "../context/financeContext";
-import Date from "./Date";
 import "../App.css";
-import editDay from "../assets/editDay1.png";
 import { useSelector } from "react-redux";
+import Date from "./Date";
+
 
 const Calendar = () => {
+
   const {
     selectedDate,
     todayFormatted,
@@ -17,15 +16,25 @@ const Calendar = () => {
     monthNames,
     daysInMonth,
     firstDayInMonth,
+    getNextMonth,
+    getPrevMonth,
   } = useCalendar();
 
 
+  const dayFormated = (date) => {
+    const [d, m, y] = date.split("-");
+    const day = d.length == 1 ? `0${d}` : d;
+    const month = m.length == 1 ? `0${m}` : m;
+    const dateFormated = `${y}-${month}-${day}`
+    return dateFormated;
+  }
+  let hoy = "2022-06-14";
 
   const amountPerDay = useSelector((state) => state.acountReducer.user.amountPerDay);
 
-  const { untilDaySelected, daysForDistribute } = useContext(FinanceContext);
-  const [ y, m, d ] = untilDaySelected ? untilDaySelected.split("-") : todayFormatted.split("-");
-  const [ today, currentMonth ] = todayFormatted.split("-");
+  const { untilDaySelected } = useContext(FinanceContext);
+  // const [ y, m, d ] = untilDaySelected ? untilDaySelected.split("-") : todayFormatted.split("-");
+  // const [ today, currentMonth ] = todayFormatted.split("-");
 
   const [viewDate, setViewDate] = useState("");
   const handleClick = (e) => {
@@ -64,7 +73,11 @@ const Calendar = () => {
                       onClick={() => handleClick(col)}
                     >
                       {col.value}
-                      <p style={{color: '#22bf22'}}>{col.amountPerDay}</p>
+                      <p style={{color: '#22bf22'}}>
+                        {
+                          dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= hoy ? `$${col.amountPerDay}` : ""
+                        }
+                      </p>
                     </td>
                   ) : (
                     <td
@@ -77,7 +90,9 @@ const Calendar = () => {
                       onClick={() => handleClick(col)}
                     >
                       {col.value}
-                      <p style={{color: '#22bf22'}}>{col.amountPerDay}</p>
+                      <p style={{color: '#22bf22'}}>{
+                        dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= hoy ? `$${col.amountPerDay}` : ""
+                      }</p>
                     </td>
                   )
                 )}
@@ -86,6 +101,13 @@ const Calendar = () => {
           })}
         </tbody>
       </table>
+
+      <button className="button" onClick={getPrevMonth}>
+          Prev
+        </button>
+        <button className="button" onClick={getNextMonth}>
+          Next
+        </button>
 
 
 {/* ------ RENDER DATE SELECTED -------------------------------------------------------------------------------------------- */}
@@ -101,23 +123,7 @@ const Calendar = () => {
                     nameDay={date.nameDay}
                     value={date.value}
                     date={date.date}
-                    amountPerDay={
-
-                      (date.date).split("-")[1] == currentMonth
-                        ? date.value <= d 
-                          & date.value >= today
-                            ? amountPerDay
-                            : 0
-
-                        :
-
-                      date.value <= d 
-                        & date.value >= today 
-                        & (date.date).split("-")[1] >= currentMonth
-                        & (date.date).split("-")[1] <= m[1]
-                        ? amountPerDay
-                        : 0
-                    }
+                    amountPerDay={dayFormated(date.date) <= untilDaySelected & dayFormated(date.date) >= hoy ? `$${amountPerDay}` : ""}
                   />
                 )
             )}

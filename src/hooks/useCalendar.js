@@ -1,6 +1,5 @@
 import { useContext, useState } from "react";
 import { useSelector } from "react-redux";
-import { FinanceContext } from "../context/financeContext";
 
 const daysShortArr = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"];
 const daysName = ["Lunes", "Martes", "Miercoles", "Jueves", "Viernes", "Sabado", "Domingo"];
@@ -8,7 +7,6 @@ const monthNamesArr = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "J
 
 
 export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr) {
-  const { daysForDistribute } = useContext(FinanceContext);
   const today = new Date();
   const todayFormatted = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
   const daysInWeek = [1, 2, 3, 4, 5, 6, 0];
@@ -21,14 +19,11 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
   let prevMonthStartingPoint = prevMonthLastDate.getDate() - daysInWeek.indexOf(firstDayInMonth) + 1;
   let currentMonthCounter = 1;
   let nextMonthCounter = 1;
-  let rows = 5;
+  let rows = 6;
   const cols = 7;
   const calendarRows = {}
-  const [day, month] = todayFormatted.split("-");
   const amountPerDay = useSelector((state) => state.acountReducer.user.amountPerDay);
-  let d = 0;
 
-  console.log(daysForDistribute)
 
 
   for (let i = 1; i < rows + 1; i++) {
@@ -47,6 +42,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                   ? selectedDate.getFullYear() - 1
                   : selectedDate.getFullYear()}`,
               value: prevMonthStartingPoint,
+              amountPerDay: amountPerDay,
               nameDay: daysName[j - 1],
               income: 0,
               expense: 0
@@ -54,14 +50,13 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
           ];
           prevMonthStartingPoint++;
         } else {
-          d++;
           calendarRows[i] = [
             ...calendarRows[i],
             {
               classes: "",
               date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
               value: currentMonthCounter,
-              amountPerDay: d >= parseInt(day) && (d-parseInt(day)) < daysForDistribute ? `$${amountPerDay}` : "",
+              amountPerDay: amountPerDay,
               nameDay: daysName[(j-1)],
               income: 0,
               expense: 0
@@ -70,14 +65,13 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
           currentMonthCounter++;
         }
       } else if (i > 1 && currentMonthCounter < daysInMonth + 1) {
-        d++;
         calendarRows[i] = [
           ...calendarRows[i],
           {
             classes: "",
             date: `${currentMonthCounter}-${selectedDate.getMonth() + 1}-${selectedDate.getFullYear()}`,
             value: currentMonthCounter,
-            amountPerDay: d >= parseInt(day) && (d-parseInt(day)) < daysForDistribute ? `$${amountPerDay}` : "",
+            amountPerDay: amountPerDay,
             nameDay: daysName[(j-1)],
             income: 0,
             expense: 0
@@ -85,7 +79,6 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
         ];
         currentMonthCounter++;
       } else {
-        d++;
         calendarRows[i] = [
           ...calendarRows[i],
           {
@@ -96,7 +89,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
                     ? selectedDate.getFullYear() + 1
                     : selectedDate.getFullYear()}`,
             value: nextMonthCounter,
-            amountPerDay: (d-parseInt(day)+2) <= daysForDistribute ? `$${amountPerDay}` : "",
+            amountPerDay: amountPerDay,
             nameDay: daysName[(j-1)],
             income: 0,
             expense: 0
@@ -107,6 +100,14 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
     }
   }
 
+const getPrevMonth = () => {
+  setSelectedDate(prevValue => new Date(prevValue.getFullYear(), prevValue.getMonth() - 1, 1));
+}
+
+const getNextMonth = () =>{
+    setSelectedDate(prevValue => new Date(prevValue.getFullYear(), prevValue.getMonth() +1, 1));
+}
+
   return {
     today,
     daysShort,
@@ -116,5 +117,7 @@ export function useCalendar(daysShort = daysShortArr, monthNames = monthNamesArr
     selectedDate,
     daysInMonth,
     firstDayInMonth,
+    getPrevMonth,
+    getNextMonth
   };
 }

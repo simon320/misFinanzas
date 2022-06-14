@@ -62,18 +62,25 @@ const Available = ({confirm, setConfirm}) => {
     if (currentMonth === month) {
       setDaysForDistribute(daysInMonth - (currentDay - 1))
       dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
-      setConfirm(!confirm)
-      setViewOptionAvailable(false);
+      setTimeout(()=>{
+        setConfirm(!confirm)
+        setViewOptionAvailable(false);
+      },100)
     } 
     
     else if ((currentMonth +1) === month){
       setDaysForDistribute((currentMonthDays - (currentDay - 1)) + daysInMonth)
       dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
-      setConfirm(!confirm)
-      setViewOptionAvailable(false);
+      setTimeout(()=>{
+        setConfirm(!confirm)
+        setViewOptionAvailable(false);
+      },100)
     }
   };
 
+  useEffect(()=>{
+    dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
+  }, [confirm])
 
   const option = () => {
     switch (viewOption) {
