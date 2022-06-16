@@ -9,6 +9,7 @@ const RowExpenseAdd = ({ date }) => {
     character: "",
     description: "",
     expense: "",
+    completed: false
   });
 
   const dispatch = useDispatch();
@@ -22,8 +23,8 @@ const RowExpenseAdd = ({ date }) => {
     });
   };
 
-  const handleAdd = (e) => {
-    dispatch(recordRegister(date, "Expense", description, expense));
+  const handleAdd = () => {
+    dispatch(recordRegister(date, "Expense", description, expense, false));
     setData({ character: "", description: "", expense: "" });
   };
 

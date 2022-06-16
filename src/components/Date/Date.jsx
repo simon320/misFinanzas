@@ -11,6 +11,8 @@ const Date = (props) => {
   const [active, setActive] = useState(false);
   const [actionAdd, setActionAdd] = useState("");
 
+  console.log(currentDate)
+
   const optionAdd = () => {
     switch (actionAdd) {
       case "income":

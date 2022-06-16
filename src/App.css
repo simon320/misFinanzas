@@ -119,6 +119,11 @@ td p {
   background-color: rgba(250, 157, 51, 0.363);
 }
 
+.row-confirm {
+  background: #dfdfdf;
+  color:#939393;
+}
+
 label {
   display: block;
   margin: 15px;
@@ -269,4 +274,8 @@ margin: 20px auto 30px;
   font-family: monospace;
   font-weight: 400;
   font-size: 1.4em;
+}
+
+.hide {
+  display: none;
 }

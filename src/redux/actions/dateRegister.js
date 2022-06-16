@@ -2,7 +2,7 @@ import { db } from "../../firebase/config-firebase";
 import { types } from "./types";
 
 
-export const recordRegister = (date, typeRegister, description, amountRegister) => {
+export const recordRegister = (date, typeRegister, description, amountRegister, completed) => {
   return async (dispatch, getState) => {
     const { uid } = getState().authReducer;
 
@@ -11,6 +11,7 @@ export const recordRegister = (date, typeRegister, description, amountRegister) 
       character: typeRegister,
       description,
       typeRegister: amountRegister,
+      completed: completed,
     };
 
     const reference = await db.collection(`users/${uid}/register-finances`).add(currentDate);
@@ -23,6 +24,24 @@ export const recordRegister = (date, typeRegister, description, amountRegister) 
     dispatch(addRegister(newRegister))
   };
 };
+
+// export const editRegister = (id, item) => {
+//   return async (dispatch, getState) => {
+//     const { uid } = getState().authReducer;
+
+//     const reference = await db.collection(`users/${uid}/register-finances/${id}`).set({
+//       ...item,
+//       completed: true
+//     });
+//     // const id = reference.id;
+//     // const newRegister = {
+//     //   id,
+//     //   ...register
+//     // }
+
+//     // dispatch(addRegister(newRegister))
+//   };
+// };
 
 
 export const readRegister = (dataRegister) => {

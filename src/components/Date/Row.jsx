@@ -2,23 +2,25 @@ import React, { useEffect, useState } from "react";
 import { useContext } from "react";
 import { useDispatch } from "react-redux";
 import { FinanceContext } from "../../context/financeContext";
-import { deleteRegisterDB } from "../../redux/actions/dateRegister";
+import { addRegister, deleteRegisterDB, editRegister, recordRegister } from "../../redux/actions/dateRegister";
 import ButtonDistribuite from "./ButtonDistribuite";
 
 const Row = ({ currentDate, date }) => {
   const dispatch = useDispatch()
 
-  const [ lineThrough, setLineThrough ] = useState(false)
-
-  const handleThrough = () =>{
-    setLineThrough(!lineThrough);
+  const handleCompleted = (date) => {
+    for (const item of currentDate) {
+      if(date == item.date){
+        dispatch(deleteRegisterDB(item.id))
+        dispatch(recordRegister(item.date, item.character, item.description, item.typeRegister, true));
+      }
+    }
   }
 
   const handleDelete = (id) => {
     dispatch(deleteRegisterDB(id))
   };
 
-  
   // let dataArray = data.filter((row) => row.id.includes(date)); //Filtro los ObjetosMovimientos hechos solo en este dia.
   let dataArray = currentDate.filter((row) => row.date.includes(date)); //Filtro los ObjetosMovimientos hechos solo en este dia.
 
@@ -50,53 +52,37 @@ const Row = ({ currentDate, date }) => {
   useEffect(()=>{
     setTotalDay(income - expense)
   }, [currentDate])
+  console.log(currentDate);
+ 
 
   return (
     <>
     <table className="center">
       <tbody>
-        { lineThrough ?
-        currentDate.map((item) => {
+        {currentDate.map((item) => {
           return (
             item.date.includes(date) &&
             (item.character == "Income" ? (
-              <tr style={{background: "#dfdfdf", color:"#939393"}} key={item.id}>
-                <td className="text-center">{item.description}</td>
-                <td className="text-center">${item.typeRegister}</td>
-              </tr>
-            ) : (
-              <tr style={{background: "#dfdfdf", color:"#939393"}} key={item.id}>
-                <td className="text-center">{item.description}</td>
-                <td className="text-center">-${item.typeRegister}</td>
-              </tr>
-            ))
-          );
-        })
-        :
-        currentDate.map((item) => {
-          return (
-            item.date.includes(date) &&
-            (item.character == "Income" ? (
-              <tr className="incomeRow" key={item.id}>
+              <tr className={`${item.completed ? "row-confirm" : "incomeRow"}`} key={item.id}>
                 <td className="text-center">{item.description}</td>
                 <td className="text-center">${item.typeRegister}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="btn btn-danger badge px-3 my-1"
+                    className={`${item.completed ? "hide" : "btn"}`}
                   >
                     ✘
                   </button>
                 </td>
               </tr>
             ) : (
-              <tr className="expenseRow" key={item.id}>
+              <tr className={`${item.completed ? "row-confirm" : "incomeRow"}`} key={item.id}>
                 <td className="text-center">{item.description}</td>
                 <td className="text-center">-${item.typeRegister}</td>
                 <td>
                   <button
                     onClick={() => handleDelete(item.id)}
-                    className="btn btn-danger badge px-3 my-1"
+                    className={`${item.completed ? "hide" : "btn"}`}
                   >
                     ✘
                   </button>
@@ -124,7 +110,7 @@ const Row = ({ currentDate, date }) => {
       </table>
           {
             totalDay !== 0 & date < todayFormated ?
-              <ButtonDistribuite total={totalDay} handleThrough={handleThrough} /> : ""
+              <ButtonDistribuite total={totalDay} handleCompleted={handleCompleted} date={date} /> : ""
           }
     </>
   );

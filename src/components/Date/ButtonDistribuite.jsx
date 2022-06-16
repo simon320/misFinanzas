@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { FinanceContext } from '../../context/financeContext';
 import { editSaving } from '../../redux/actions/acount';
 
-const ButtonDistribuite =  ({ total, handleThrough }) => {
+const ButtonDistribuite =  ({ total, handleCompleted, date }) => {
     const {confirm, setConfirm, lineThrough, setLineThrough, daysForDistribute } = useContext(FinanceContext);
     const [viewOption, setViewOption] = useState(false);
 
@@ -19,7 +19,7 @@ const ButtonDistribuite =  ({ total, handleThrough }) => {
       : parseInt(moneyForSaved);
 
     dispatch(editSaving(currentSave));
-    handleThrough();
+    handleCompleted(date);
     setConfirm(!confirm)
     setViewOption(false);
   };
