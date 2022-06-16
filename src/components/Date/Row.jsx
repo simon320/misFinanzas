@@ -1,10 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useContext } from "react";
 import { useDispatch } from "react-redux";
-import { deleteRegisterDB } from "../redux/actions/dateRegister";
+import { FinanceContext } from "../../context/financeContext";
+import { deleteRegisterDB } from "../../redux/actions/dateRegister";
+import ButtonDistribuite from "./ButtonDistribuite";
 
 const Row = ({ currentDate, date }) => {
-
   const dispatch = useDispatch()
+
+  const [ lineThrough, setLineThrough ] = useState(false)
+
+  const handleThrough = () =>{
+    setLineThrough(!lineThrough);
+  }
 
   const handleDelete = (id) => {
     dispatch(deleteRegisterDB(id))
@@ -30,17 +38,46 @@ const Row = ({ currentDate, date }) => {
     expense += parseInt(dayExpenseArray[i]);
   }
 
-  let totalDay = income - expense;
+  const [totalDay, setTotalDay] = useState(income - expense);
+
+  let today = new Date();
+  const currentDay = today.getDate();
+  const currentMonth = today.getMonth() + 1;
+  const currentYear = today.getFullYear();
+  const todayFormated = `${currentDay}-${currentMonth}-${currentYear}`
+
+
+  useEffect(()=>{
+    setTotalDay(income - expense)
+  }, [currentDate])
 
   return (
+    <>
     <table className="center">
       <tbody>
-        {currentDate.map((item) => {
+        { lineThrough ?
+        currentDate.map((item) => {
+          return (
+            item.date.includes(date) &&
+            (item.character == "Income" ? (
+              <tr style={{background: "#dfdfdf", color:"#939393"}} key={item.id}>
+                <td className="text-center">{item.description}</td>
+                <td className="text-center">${item.typeRegister}</td>
+              </tr>
+            ) : (
+              <tr style={{background: "#dfdfdf", color:"#939393"}} key={item.id}>
+                <td className="text-center">{item.description}</td>
+                <td className="text-center">-${item.typeRegister}</td>
+              </tr>
+            ))
+          );
+        })
+        :
+        currentDate.map((item) => {
           return (
             item.date.includes(date) &&
             (item.character == "Income" ? (
               <tr className="incomeRow" key={item.id}>
-                <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
                 <td className="text-center">${item.typeRegister}</td>
                 <td>
@@ -54,7 +91,6 @@ const Row = ({ currentDate, date }) => {
               </tr>
             ) : (
               <tr className="expenseRow" key={item.id}>
-                <td className="text-center">{item.character}</td>
                 <td className="text-center">{item.description}</td>
                 <td className="text-center">-${item.typeRegister}</td>
                 <td>
@@ -83,15 +119,14 @@ const Row = ({ currentDate, date }) => {
           <td>
             <p>Total del dia: ${totalDay}</p>
           </td>
-          {
-            totalDay !== 0 &&
-            <td>
-              <button>Repartir Diferencia</button>
-            </td>
-          }
         </tr>
-      </tfoot>
-    </table>
+        </tfoot>
+      </table>
+          {
+            totalDay !== 0 & date < todayFormated ?
+              <ButtonDistribuite total={totalDay} handleThrough={handleThrough} /> : ""
+          }
+    </>
   );
 };
 

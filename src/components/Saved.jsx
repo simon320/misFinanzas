@@ -1,12 +1,11 @@
 import React, { useState, useContext, useEffect } from "react";
 import { FinanceContext } from "../context/financeContext";
 import { useSelector, useDispatch } from "react-redux";
-import { editAmount, editSaving, editBadge, readAcount } from "../redux/actions/acount";
-import { loadDataAcount } from "../helpers/loadDataAcount";
+import { editAmount, editSaving, editBadge, readAcount, editAmountPerDay } from "../redux/actions/acount";
 
 
-const Saved = ({confirm, setConfirm}) => {
-  const uid = useSelector((state) => state.authReducer.uid);
+
+const Saved = () => {
   const amount = useSelector((state) => state.acountReducer.user.amount);
   const saving = useSelector((state) => state.acountReducer.user.saved);
   const badge = useSelector((state) => state.acountReducer.user.valuta);
@@ -14,19 +13,10 @@ const Saved = ({confirm, setConfirm}) => {
   const dispatch = useDispatch();
 
   const {
-    viewOptionAvailable,
-    setViewOptionAvailable,
     viewOptionSaved,
     setViewOptionSaved,
-    moneyInAccount,
-    setMoneyInAccount,
-    savedMoney,
-    setSavedMoney,
-    moneyInBadge,
-    setMoneyInBadge,
-    setAmountPerDay,
-    daysForDistribute,
-    setDaysForDistribute,
+    confirm, setConfirm,
+    daysForDistribute
   } = useContext(FinanceContext);
 
   const [viewOption, setViewOption] = useState("");
@@ -46,10 +36,13 @@ const Saved = ({confirm, setConfirm}) => {
 
     dispatch(editAmount(currentAmount));
     dispatch(editSaving(currentSave));
+    dispatch(editAmountPerDay(Math.round(currentAmount / daysForDistribute)));
 
-    setConfirm(!confirm)
 
-    setViewOptionSaved(false);
+    setTimeout(()=>{
+      setConfirm(!confirm)
+      setViewOptionSaved(false);
+    },100)
   };
 
   const handleTransferBadge = () => {

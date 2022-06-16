@@ -1,19 +1,19 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { recordRegister } from "../redux/actions/dateRegister";
+import { addRegister, recordRegister } from "../../redux/actions/dateRegister";
 
 
-const RowExpenseAdd = ({ date }) => {
+const RowIncomeAdd = ({ date }) => {
 
   const [data, setData] = useState({
     character: "",
     description: "",
-    expense: "",
+    income: 0,
   });
 
   const dispatch = useDispatch();
 
-  const { description, expense } = data;
+  const { description, income } = data;
 
   const handleChange = (e) => {
     setData({
@@ -22,15 +22,16 @@ const RowExpenseAdd = ({ date }) => {
     });
   };
 
-  const handleAdd = (e) => {
-    dispatch(recordRegister(date, "Expense", description, expense));
-    setData({ character: "", description: "", expense: "" });
+  const handleAdd = () => {
+    dispatch(recordRegister(date, "Income", description, income));
+    setData({ character: "", description: "", income: 0 });
   };
+
 
   return (
     <>
       <label>
-        Gasto:
+        Ingreso:
         <input
           onChange={handleChange}
           name="description"
@@ -44,9 +45,9 @@ const RowExpenseAdd = ({ date }) => {
         $
         <input
           onChange={handleChange}
-          name="expense"
-          value={expense}
-          type="text"
+          name="income"
+          value={income}
+          type="number"
           placeholder="monto"
           autoComplete="off"
         />
@@ -58,4 +59,4 @@ const RowExpenseAdd = ({ date }) => {
   );
 };
 
-export default RowExpenseAdd;
+export default RowIncomeAdd;

@@ -3,7 +3,7 @@ import { useCalendar } from "../hooks/useCalendar";
 import { FinanceContext } from "../context/financeContext";
 import "../App.css";
 import { useSelector } from "react-redux";
-import Date from "./Date";
+import Date from "./Date/Date";
 
 
 const Calendar = () => {
@@ -32,7 +32,7 @@ const Calendar = () => {
 
   const amountPerDay = useSelector((state) => state.acountReducer.user.amountPerDay);
 
-  const { untilDaySelected } = useContext(FinanceContext);
+  const { fromDaySelected, untilDaySelected } = useContext(FinanceContext);
   // const [ y, m, d ] = untilDaySelected ? untilDaySelected.split("-") : todayFormatted.split("-");
   // const [ today, currentMonth ] = todayFormatted.split("-");
 
@@ -75,7 +75,7 @@ const Calendar = () => {
                       {col.value}
                       <p style={{color: '#22bf22'}}>
                         {
-                          dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= hoy ? `$${col.amountPerDay}` : ""
+                          dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= fromDaySelected ? `$${col.amountPerDay}` : ""
                         }
                       </p>
                     </td>
@@ -91,7 +91,7 @@ const Calendar = () => {
                     >
                       {col.value}
                       <p style={{color: '#22bf22'}}>{
-                        dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= hoy ? `$${col.amountPerDay}` : ""
+                        dayFormated(col.date) <= untilDaySelected & dayFormated(col.date) >= fromDaySelected ? `$${col.amountPerDay}` : ""
                       }</p>
                     </td>
                   )
@@ -123,7 +123,7 @@ const Calendar = () => {
                     nameDay={date.nameDay}
                     value={date.value}
                     date={date.date}
-                    amountPerDay={dayFormated(date.date) <= untilDaySelected & dayFormated(date.date) >= hoy ? `$${amountPerDay}` : ""}
+                    amountPerDay={dayFormated(date.date) <= untilDaySelected & dayFormated(date.date) >= fromDaySelected ? `$${amountPerDay}` : ""}
                   />
                 )
             )}

@@ -2,20 +2,22 @@ import React, { useState, useContext, useEffect, useRef } from "react";
 import { FinanceContext } from "../context/financeContext";
 import { useSelector, useDispatch } from "react-redux";
 import { editAmount, editAmountPerDay, editSaving, readAcount } from "../redux/actions/acount";
-import { loadDataAcount } from "../helpers/loadDataAcount";
 
-const Available = ({confirm, setConfirm}) => {
-  const uid = useSelector((state) => state.authReducer.uid);
+
+
+const Available = () => {
   const amount = useSelector((state) => state.acountReducer.user.amount);
   const saving = useSelector((state) => state.acountReducer.user.saved);
-
   const dispatch = useDispatch();
 
   const {
     viewOptionAvailable,
     setViewOptionAvailable,
+    confirm, setConfirm,
     daysForDistribute,
     setDaysForDistribute,
+    fromDaySelected,
+    setFromDaySelected,
     untilDaySelected, 
     setUntilDaySelected
   } = useContext(FinanceContext);
@@ -50,17 +52,18 @@ const Available = ({confirm, setConfirm}) => {
   }
 
   const handleDistribute = () => {
-    let date = new Date()
-    const currentDay = date.getDate()
-    const currentMonth = date.getMonth() + 1
-    const [y, m, d] = untilDaySelected.split("-")
-    const daysInMonth = parseInt(d);
-    const month = parseInt(m);
-    const year = parseInt(y);
-    const currentMonthDays = dayInMonth(month, year)
+    const [, mI, dI] = fromDaySelected.split("-")
+    const [yE, mE, dE] = untilDaySelected.split("-")
+    const dayInitial = parseInt(dI);
+    const monthInitial = parseInt(mI);
+    const dayEnd = parseInt(dE);
+    const monthEnd = parseInt(mE);
+    const yearEnd = parseInt(yE);
 
-    if (currentMonth === month) {
-      setDaysForDistribute(daysInMonth - (currentDay - 1))
+    const currentMonthDays = dayInMonth(monthEnd, yearEnd)
+
+    if (monthInitial === monthEnd) {
+      setDaysForDistribute(dayEnd - (dayInitial - 1))
       dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
       setTimeout(()=>{
         setConfirm(!confirm)
@@ -68,8 +71,8 @@ const Available = ({confirm, setConfirm}) => {
       },100)
     } 
     
-    else if ((currentMonth +1) === month){
-      setDaysForDistribute((currentMonthDays - (currentDay - 1)) + daysInMonth)
+    else if ((monthInitial +1) === monthEnd){
+      setDaysForDistribute((currentMonthDays - (dayInitial - 1)) + dayEnd)
       dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
       setTimeout(()=>{
         setConfirm(!confirm)
@@ -82,26 +85,37 @@ const Available = ({confirm, setConfirm}) => {
     dispatch(editAmountPerDay(Math.round(parseInt(amount) / daysForDistribute)))
   }, [confirm])
 
+  console.log(fromDaySelected);
   const option = () => {
     switch (viewOption) {
       case "distribute":
         return (
           <>
+            <h3>Selecciona las fechas en las que te manejaras con este dinero</h3>
             <label>
-              ¿En cuantos dias queres distribuir el dinero?
+              Desde
+              <input
+                type="date"
+                placeholder="Selecciona una fecha"
+                value={fromDaySelected}
+                onChange={(e) => setFromDaySelected(e.target.value)}
+              />
+            </label>
+            <label>
+              Hasta 
               <input
                 type="date"
                 placeholder="Selecciona una fecha"
                 value={untilDaySelected}
                 onChange={(e) => setUntilDaySelected(e.target.value)}
               />
+            </label>
               <button className="btn btn-info m-2" onClick={() => handleDistribute()}>
                 Distribuir
               </button>
               <button className="btn btn-info m-2" onClick={()=> setViewOptionAvailable(false)}>
                 Cerrar
               </button>
-            </label>
           </>
         );
       case "save":

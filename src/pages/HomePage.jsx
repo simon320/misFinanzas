@@ -18,15 +18,13 @@ const HomePage = () => {
     setViewOptionAvailable,
     viewOptionSaved,
     setViewOptionSaved,
-    daysForDistribute,
-    setDaysForDistribute,
-    amountPerDay,
-    setAmountPerDay,
+    confirm, setConfirm,
+    fromDaySelected,
     untilDaySelected
   } = useContext(FinanceContext);
 
-  const [y, m, d] = untilDaySelected.split("-")
-
+  const [, mI, dI] = fromDaySelected.split("-")
+  const [, mE, dE] = untilDaySelected.split("-")
 
 
   const userName = useSelector((state) => state.authReducer.displayName);
@@ -35,8 +33,6 @@ const HomePage = () => {
   const amount = useSelector((state) => state.acountReducer.user.amount);
   const amountPerDays = useSelector((state) => state.acountReducer.user.amountPerDay);
   const saving = useSelector((state) => state.acountReducer.user.saved);
-
-  const [confirm, setConfirm] = useState(false);
 
   const dispatch = useDispatch();
   const navigation = useNavigate();
@@ -101,7 +97,8 @@ const HomePage = () => {
               <h3>
                 x/Dia <span>${amountPerDays}</span>
               </h3>
-              <p>Hasta {d}/{m}</p>
+              <p>Desde {dI}/{mI}</p>
+              <p>Hasta {dE}/{mE}</p>
             </div>
         <br />
         <Link to={"Calendar"}>Home</Link>{" "}
